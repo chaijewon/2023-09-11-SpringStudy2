@@ -20,7 +20,7 @@
 </head>
 <body>
   <div class="container">
-    <h3 class="text-center">글쓰기</h3>
+    <h3 class="text-center">수정</h3>
     <div class="row">
      <%--
            form => 기본 기능 (서버로 데이터 전송)
@@ -55,7 +55,7 @@
        </tr>
        <tr>
          <td colspan="2" class="text-center">
-           <input type="submit" value="글쓰기" class="btn-success btn-sm">
+           <input type="submit" value="수정" class="btn-success btn-sm">
            <input type="button" value="취소" onclick="javascript:history.back()"
             class="btn-info btn-sm"
            >
@@ -72,8 +72,22 @@
     			name:'',
     			subject:'',
     			content:'',
-    			pwd:''
+    			pwd:'',
+    			no:${no}
     		}
+    	},
+    	mounted(){
+    		axios.get('../board/update_vue.do',{
+    			params:{
+    				no:this.no
+    			}
+    		}).then(response=>{
+    			this.name=response.data.name
+    			this.subject=response.data.subject
+    			this.content=response.data.content
+    			
+    		})
+    		
     	},
     	methods:{
     		submitForm(){
@@ -108,17 +122,27 @@
     			/*
     			   
     			*/
-    			axios.post('../board/insert_ok.do',null,{
+    			axios.post('../board/update_ok.do',null,{
     				params:{
     					name:this.name,
     					subject:this.subject,
     					content:this.content,
-    					pwd:this.pwd
+    					pwd:this.pwd,
+    					no:this.no
     				}
     			})
     			.then(response=>{
-    			        	 location.href="../board/list.do"
-    			        	  
+    				        
+    				         if(response.data==='yes')
+    				         {
+    			        	   location.href="../board/detail.do?no="+this.no
+    				         }
+    				         else
+    				         {
+    				        	 alert("비밀번호가 틀립니다!!")
+    				        	 this.pwd='';
+    				        	 this.$refs.pwd.focus()
+    				         }
     			          })
     			          .catch(error=>{
     			        	  console.log(error.response)

@@ -40,10 +40,48 @@ public class BoardRestController {
 	  return json;
   }
   
-  @GetMapping(value="board/insert_ok.do",produces = "text/plain;charset=UTF-8")
+  @PostMapping(value="board/insert_ok.do",produces = "text/plain;charset=UTF-8")
   public void board_insert_ok(BoardVO vo)
   {
       dao.boardInsert(vo);	  
+  }
+  //{"":"","":""} JSONObject 
+  /*
+   *   @RestController
+   *   class A
+   *   {
+   *      @GetMapping()
+   *      public List<FoodVO> listdata()
+   *      {
+   *          List<FoodVO> list=dao.getList()
+   *          return list;
+   *      }
+   *   }
+   */
+  @GetMapping(value="board/detail_vue.do",produces = "text/plain;charset=UTF-8")
+  public String board_detail(int no) throws Exception
+  {
+	  BoardVO vo=dao.boardDetailData(no);
+	  ObjectMapper mapper=new ObjectMapper();
+	  String json=mapper.writeValueAsString(vo);
+	  System.out.println(json);
+	  return json;
+  }
+  
+  @GetMapping(value="board/update_vue.do",produces = "text/plain;charset=UTF-8")
+  public String board_update(int no) throws Exception
+  {
+	  BoardVO vo=dao.boardUpdateData(no);
+	  ObjectMapper mapper=new ObjectMapper();
+	  String json=mapper.writeValueAsString(vo);
+	  return json;
+  }
+  
+  @PostMapping(value="board/update_ok.do",produces = "text/plain;charset=UTF-8")
+  public String board_update_ok(BoardVO vo)
+  {
+	  String result=dao.boardUpdate(vo);
+	  return result;
   }
 }
 

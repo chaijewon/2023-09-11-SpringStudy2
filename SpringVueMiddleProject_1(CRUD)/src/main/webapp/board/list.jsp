@@ -39,16 +39,16 @@
         </tr>
         <tr v-for="vo in board_list">
          <td class="text-center" width=10%>{{vo.no}}</td>
-         <td width=45%>{{vo.subject}}</td>
+         <td width=45%><a :href="'detail.do?no='+vo.no">{{vo.subject}}</a></td>
          <td class="text-center" width=15%>{{vo.name}}</td>
          <td class="text-center" width=20%>{{vo.dbday}}</td>
          <td class="text-center" width=10%>{{vo.hit}}</td>
         </tr>
         <tr>
           <td colspan="5" class="text-center">
-            <input type=button class="btn btn-sm btn-primary" value="이전">
+            <input type=button class="btn btn-sm btn-primary" value="이전" @click="prev()">
              {{curpage}} page / {{totalpage}} pages
-            <input type=button class="btn btn-sm btn-primary" value="다음">
+            <input type=button class="btn btn-sm btn-primary" value="다음" @click="next()">
           </td>
         </tr>
       </table>
@@ -89,6 +89,14 @@
     				this.curpage=response.data.curpage
     				this.totalpage=response.data.totalpage
     			})
+    		},
+    		prev(){
+    			this.curpage=this.curpage>1?this.curpage-1:this.curpage
+    			this.dataSend();
+    		},
+    		next(){
+    			this.curpage=this.curpage<this.totalpage?this.curpage+1:this.curpage
+    		    this.dataSend()
     		}
     	}
     }).mount('.container')

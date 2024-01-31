@@ -4,6 +4,7 @@ import java.util.*;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.sist.vo.*;
 public interface BoardMapper {
@@ -23,7 +24,24 @@ public interface BoardMapper {
    public void boardInsert(BoardVO vo);
    
    // 상세보기 
+   @Update("UPDATE vueBoard SET "
+		  +"hit=hit+1 "
+		  +"WHERE no=#{no}")
+   public void hitIncrement(int no);
+   
+   @Select("SELECT no,name,subject,content,hit,TO_CHAR(regdate,'YYYY-MM-DD') as dbday "
+		  +"FROM vueBoard "
+		  +"WHERE no=#{no}")
+   public BoardVO boardDetailData(int no);
    // 수정 
+   @Select("SELECT pwd FROM vueBoard "
+		  +"WHERE no=#{no}")
+   public String boardGetPassword(int no);
+   
+   @Update("UPDATE vueBoard SET "
+		  +"name=#{name},subject=#{subject},content=#{content} "
+		  +"WHERE no=#{no}")
+   public void boardUpdate(BoardVO vo);
    // 삭제 
 }
 
