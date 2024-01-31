@@ -57,6 +57,7 @@
   <!--  제어 -->
   <script>
     let app=Vue.createApp({
+    	// 멤버변수 
     	data(){
     		return {
     			// 변수 선언 
@@ -65,9 +66,11 @@
     			totalpage:0
     		}
     	},
+    	// Callback
     	mounted(){
     		this.dataSend()
     	},
+    	// 멤버메소드
     	methods:{
     		dataSend(){
     			axios.get('../board/list_vue.do',{

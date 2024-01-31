@@ -83,6 +83,13 @@ public class BoardRestController {
 	  String result=dao.boardUpdate(vo);
 	  return result;
   }
+  
+  @GetMapping(value="board/delete_vue.do",produces = "text/plain;charset=UTF-8")
+  public String board_delete_ok(int no, String pwd)
+  {
+	  String result=dao.boardDelete(no, pwd);
+	  return result;
+  }
 }
 
 
