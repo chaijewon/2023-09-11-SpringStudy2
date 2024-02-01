@@ -48,6 +48,7 @@ public class DataBoardRestController {
    @PostMapping(value="databoard/insert_vue.do",produces = "text/plain;charset=UTF-8")
    public String databoard_insert(DataBoardVO vo,HttpServletRequest request)
    {
+	   System.out.println("접근 완료!!");
 	   // C:\springDev\springStudy\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\SpringVueMiddleProject_2
 	   String result="";
 	   try

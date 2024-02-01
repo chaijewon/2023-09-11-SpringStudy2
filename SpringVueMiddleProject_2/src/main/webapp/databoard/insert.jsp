@@ -50,7 +50,8 @@
        <tr>
          <th width=15% class="text-center">첨부파일</th>
          <td width=85%>
-           <input type=file ref="files" class="input-sm" multiple accept="upload/*">
+           <input type=file ref="upfiles" class="input-sm" multiple="multiple" accept="upload/*" 
+            v-model="upfiles">
          </td>
        </tr>
        <tr>
@@ -72,73 +73,91 @@
     </div>
   </div>
   <script>
+    // Vue객체 생성 
     let app=Vue.createApp({
+    	// 멤버변수 설정
     	data(){
     		return {
     			name:'',
     			subject:'',
     			content:'',
     			pwd:'',
-    			files:[]
+    			upfiles:''
     		}
     	},
+    	// 멤버함수 설정
     	methods:{
+    		// submit버튼 호출시에 => 데이터전송이 없이 submitForm()를 호출 
+    		// @submit.prevent
+    		// submit / a => defaultPrevent => 이벤트 동작을 중지 
     		submitForm(){
-    			if(this.name==='')
+    			// NOT NULL => 유효성 검사 
+    			if(this.name==="")
     			{
-    				this.$refs.name.focus()
-    				return
+    				this.$refs.name.focus(); // ref는 태그를 제어 
+    				return;
     			}
-    			if(this.subject==='')
+    			if(this.subject==="")
     			{
-    				this.$refs.subject.focus()
-    				return
+    				this.$refs.subject.focus(); // ref는 태그를 제어 
+    				return;
     			}
-    			if(this.content==='')
+    			if(this.content==="")
     			{
-    				this.$refs.content.focus()
-    				return
+    				this.$refs.content.focus(); // ref는 태그를 제어 
+    				return;
     			}
-    			if(this.pwd==='')
+    			if(this.pwd==="")
     			{
-    				this.$refs.pwd.focus()
-    				return
+    				this.$refs.pwd.focus(); // ref는 태그를 제어 
+    				return;
     			}
     			
-    			/*let form=new FormData()
-    			console.log(this.name+" "+this.subject+" "+this.content+" "+this.pwd)
-    			form.append("name",this.name)
-    			form.append("subject",this.subject)
-    			form.append("content",this.content)
-    			form.append("pwd",this.pwd)
-    			//{params:{name:this.name}}*/
-    			/*
-    			   
-    			*/
-    			axios.post('../board/insert_ok.do',null,{
-    				params:{
-    					name:this.name,
-    					subject:this.subject,
-    					content:this.content,
-    					pwd:this.pwd
-    				}
-    			})
-    			.then(response=>{
-    			        	
-    				         if(response.data==='yes')
-    				         {
-    				            location.href="../databoard/list.do"	 
-    				         }
-    				         else
-    				         {
-    				        	 alert(response.data) 
-    				         }
-    			        	  
-    			          })
-    			          .catch(error=>{
-    			        	  console.log(error.response)
-    			          })
-    		}
+    			let formData=new FormData();
+    			formData.append("name",this.name);
+    			formData.append("subject",this.subject);
+    			formData.append("content",this.content);
+    			formData.append("pwd",this.pwd);
+    			
+    			let leng=this.$refs.upfiles.files.length;
+    			//alert("leng="+leng)
+    			// List => [0]
+    			if(leng>0)
+    			{
+    			    for(let i=0;i<leng;i++)
+    			    {
+    			    	formData.append("files["+i+"]",this.$refs.upfiles.files[i])
+    			    }
+    		    }
+    		
+    		
+    		// 서버로 전송 
+	    		axios.post('../databoard/insert_vue.do',formData,{
+	    			header:{
+	    				'Content-Type':'multipart/form-data'
+	    			}
+	    		})
+	    		.then(response=>{
+	    			if(response.data==='yes')
+	    			{
+	    				location.href="../databoard/list.do"
+	    			}
+	    			else
+	    			{
+	    			    alert(response.data)	
+	    			}
+	    		}).catch(error=>{
+	    			console.log(error.response)
+	    		})
+    		
+    		}//submitForm() end
+    	},
+    	// CallBack => Vue에 의해 호출되는 함수
+    	mounted(){
+    		// 시작과 동시에 처리 
+    	},
+    	updated(){
+    		// 데이터를 갱신 => component를 만든 경우 ****
     	}
     }).mount('.container')
   </script>
