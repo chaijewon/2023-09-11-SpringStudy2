@@ -21,6 +21,8 @@ public class BoardConfig implements WebMvcConfigurer{
 	 *  <bean id="viewResolver" 
          class="org.springframework.web.servlet.view.InternalResourceViewResolver"
          p:prefix="/"
+         
+          
          p:suffix=".jsp"
     />
 	 */
