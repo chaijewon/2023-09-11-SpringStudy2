@@ -4,6 +4,7 @@ import java.util.*;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.sist.vo.DataBoardVO;
 public interface DataBoardMapper {
@@ -29,5 +30,15 @@ public interface DataBoardMapper {
      *      = selectOne  => 상세  VO , 일반 데이터형 
      *   INSERT,UPDATE,DELETE => void로 설정 
      */
+    @Update("UPDATE vueDataBoard SET "
+    	   +"hit=hit+1 "
+    	   +"WHERE no=#{no}")
+    public void hitIncrement(int no);
     
+    @Select("SELECT no,name,subject,content,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,"
+    	   +"hit,filename,filesize,filecount "
+    	   +"FROM vueDataBoard "
+    	   +"WHERE no=#{no}")
+    
+    public DataBoardVO databoardDetailData(int no);
 }

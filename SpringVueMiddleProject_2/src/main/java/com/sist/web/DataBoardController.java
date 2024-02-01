@@ -1,6 +1,7 @@
 package com.sist.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 // 화면 변경 
 @Controller
@@ -14,5 +15,11 @@ public class DataBoardController {
    public String databoard_insert()
    {
 	   return "databoard/insert";
+   }
+   @GetMapping("databoard/detail.do")
+   public String databoard_detail(int no,Model model)
+   {
+	   model.addAttribute("no", no);
+	   return "databoard/detail";
    }
 }

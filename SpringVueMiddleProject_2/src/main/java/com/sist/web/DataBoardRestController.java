@@ -96,6 +96,23 @@ public class DataBoardRestController {
 	   }
 	   return result;
    }
+   
+   @GetMapping(value = "databoard/detail_vue.do",produces = "text/plain;charset=UTF-8")
+   public String databoard_detail(int no) throws Exception
+   {
+	   /*
+	    *   no,name,subject,content,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,"
+    	   +"hit,filename,filesize,filecount
+    	   
+    	   response.data={"no":1,name:"",subject:""...filename:""}
+    	   a={"sabun":1,name:"홍길동"};
+    	   a.sabun a.name
+	    */
+	   DataBoardVO vo=dao.databoardDetailData(no);
+	   ObjectMapper mapper=new ObjectMapper();
+	   String json=mapper.writeValueAsString(vo);
+	   return json;
+   }
 }
 
 
