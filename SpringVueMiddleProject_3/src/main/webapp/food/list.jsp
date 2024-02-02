@@ -25,9 +25,11 @@ a.link:hover{
     Model = ViewModel = View(HTML)   =>  MVVM
       ===================> 기능으로 설정 (양방향 통신) 
  -->
+ 
 </head>
 <body>
-   <div class="container">
+   <jsp:include page="${login_jsp}"></jsp:include>
+   <div class="container" id="listApp">
      <div class="row">
        <div class="col-md-3" v-for="vo in food_list">
        <a :href="'../food/detail.do?fno='+vo.fno">
@@ -121,7 +123,7 @@ a.link:hover{
     	updated(){
     		// 상태가 변경되었을 경우 => 데이터 (data()에 있는 데이터값이 변경)
     	}
-    }).mount('.container')
+    }).mount('#listApp')
    </script>
 </body>
 </html>

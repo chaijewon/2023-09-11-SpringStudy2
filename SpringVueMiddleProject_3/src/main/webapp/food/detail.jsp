@@ -14,6 +14,9 @@
   margin: 0px auto;
   width: 960px;
 }
+.row1{
+  width: 600px;
+}
 </style>
 <script src="https://unpkg.com/vue@3"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -21,8 +24,9 @@
 <!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=5e421950ce6e70bb7c508166e4a0ce04&libraries=services"></script> -->
 </head>
 <body>
+  <jsp:include page="${login_jsp}"></jsp:include>
   <%-- fno,score,poster,name,type,address,phone,theme,price,time,seat --%>
-  <div class="container">
+  <div class="container" id="app1">
     <div class="row">
       <table class="table">
         <tr>
@@ -47,7 +51,11 @@
         </tr>
         <tr>
           <td class="text-center" width="10%">테마</td>
-          <td width="60%">{{vo.theme}}</td>
+          <td width="60%">
+            <ul>
+             <li v-for="t in theme">{{t}}</li>
+            </ul>
+          </td>
         </tr>
         <tr>
           <td class="text-center" width="10%">가격대</td>
@@ -61,11 +69,22 @@
           <td class="text-center" width="10%">좌석</td>
           <td width="60%">{{vo.seat}}</td>
         </tr>
+        <tr>
+          <td colspan="3" class="text-right">
+           <input type=button value="목록"
+            class="btn btn-xs btn-primary" onclick="javascript:history.back()">
+          </td>
+        </tr>
       </table>
     </div>
     <div style="height: 20px"></div>
     <div class="row">
        <div id="map" style="width:100%;height:350px;"></div>
+    </div>
+  </div>
+  <div class="container" id="app2">
+    <div class="row row1">
+    
     </div>
   </div>
   <script>
@@ -75,7 +94,9 @@
     			vo:{},
     			fno:${fno},
     			address:'',
-    			name:''
+    			name:'',
+    			theme:[],
+    			sessionId:''
     		}
     	},
     	mounted(){
@@ -86,6 +107,7 @@
     		}).then(response=>{
     			console.log(response.data)
     			this.vo=response.data
+    			this.theme=response.data.theme.split(",")
     			this.address=response.data.address
     			this.name=response.data.name
     			
@@ -149,7 +171,11 @@
     		 });    
     		}
     	}
-    }).mount('.container')
+    }).mount('#app1')
+    // 댓글 
+    let app2=createApp({
+    	
+    }).mount("#app2")
   </script>
 </body>
 </html>
