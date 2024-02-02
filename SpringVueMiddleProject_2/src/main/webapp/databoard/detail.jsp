@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%--
+    String json="{"
+    
+ --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,7 +49,7 @@
            <td colspan="3">
              <ul>
                <li v-for="(fn,index) in filenames">
-                 {{fn}}&nbsp;({{filesizes[index]}}Bytes)
+                 <a :href="'../databoard/download.do?fn='+fn">{{fn}}</a>&nbsp;({{filesizes[index]}}Bytes)
                </li>
              </ul>
            </td>

@@ -7,10 +7,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.net.URLEncoder;
 import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.sist.vo.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -112,6 +117,40 @@ public class DataBoardRestController {
 	   ObjectMapper mapper=new ObjectMapper();
 	   String json=mapper.writeValueAsString(vo);
 	   return json;
+   }
+   @GetMapping(value="databoard/download.do")
+   public void databoard_download(String fn,HttpServletRequest request,
+		   HttpServletResponse response)
+   {
+	   String path=request.getSession().getServletContext().getRealPath("/")+"upload\\";
+	   path=path.replace("\\", File.separator);
+	   
+	   try
+	   {
+		   File file=new File(path+fn);
+		   response.setHeader("Content-Disposition", "attachment;filename="
+				                +URLEncoder.encode(fn, "UTF-8"));
+		   response.setContentLength((int)file.length());
+		   // => 다운로드 창을 보여준다 
+		   
+		   BufferedInputStream bis=
+				   new BufferedInputStream(new FileInputStream(file));
+		   // 서버에서 파일을 읽어 온다 
+		   BufferedOutputStream bos=
+				   new BufferedOutputStream(response.getOutputStream());
+		   // 클라이언트 복사 영역
+		   int i=0;
+		   byte[] buffer=new byte[1024];
+		   while((i=bis.read(buffer, 0, 1024))!=-1)
+		   {
+			   //i=읽은 바이트수 
+			   //-1 EOF 
+			   bos.write(buffer, 0, i);
+		   }
+		   bis.close();
+		   bos.close();
+		   
+	   }catch(Exception ex) {}
    }
 }
 
