@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.*;
+
+import javax.servlet.http.HttpSession;
+
 import com.sist.vo.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.service.*;
@@ -45,5 +48,33 @@ public class MainRestController {
 	   ObjectMapper mapper=new ObjectMapper();
 	   String json=mapper.writeValueAsString(map);
 	   return json;
+   }
+   
+   @GetMapping(value="food/detail_vue.do",produces = "text/plain;charset=UTF-8")
+   public String food_detail(int fno,HttpSession session) throws Exception
+   {
+	   String id=(String)session.getAttribute("id");
+	   FoodVO vo=service.foodDetailData(fno);
+	   vo.setSessionId(id);
+	   ObjectMapper mapper=new ObjectMapper();
+	   String json=mapper.writeValueAsString(vo);
+	   return json;
+   }
+   
+   @GetMapping(value="member/login_vue.do",produces = "text/plain;charset=UTF-8")
+   public String member_login(String id,String pwd,HttpSession session)
+   {
+	   MemberVO vo=service.isLogin(id, pwd);
+	   if(vo.getMsg().equals("OK"))
+	   {
+		   session.setAttribute("id", vo.getId());
+		   session.setAttribute("name", vo.getName());
+	   }
+	   return vo.getMsg();
+   }
+   @GetMapping(value="member/logout_vue.do",produces = "text/plain;charset=UTF-8")
+   public void member_logout(HttpSession session)
+   {
+	   session.invalidate();
    }
 }

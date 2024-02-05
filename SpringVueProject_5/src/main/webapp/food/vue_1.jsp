@@ -30,6 +30,10 @@
   <div class="container">
    <div class="row">
      <card title="Custom Card" :content="cardMessage" :buttonText="더보기" @click="btnClick"></card>
+     <card title="Custom Card" :content="cardMessage" :buttonText="더보기" @click="btnClick"></card>
+     <card title="Custom Card" :content="cardMessage" :buttonText="더보기" @click="btnClick"></card>
+     <card title="Custom Card" :content="cardMessage" :buttonText="더보기" @click="btnClick"></card>
+     <card title="Custom Card" :content="cardMessage" :buttonText="더보기" @click="btnClick"></card>
    </div>
   </div>
   <script>

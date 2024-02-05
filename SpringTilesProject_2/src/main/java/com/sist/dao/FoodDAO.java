@@ -23,4 +23,8 @@ public class FoodDAO {
    {
 	   return mapper.foodTotalPage();
    }
+   public FoodVO foodDetailData(int fno)
+   {
+	   return mapper.foodDetailData(fno);
+   }
 }
