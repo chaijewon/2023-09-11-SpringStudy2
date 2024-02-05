@@ -18,10 +18,12 @@ a.alink:hover{
     <div class="row">
       <div class="col-md-3" v-for="vo in food_list">
 	    <div class="thumbnail">
+	       <a :href="'../food/detail.do?fno='+vo.fno">
 	        <img :src="'https://www.menupan.com'+vo.poster" style="width:100%">
 	        <div class="caption">
 	          <p style="font-size:8px">{{vo.name}}</p>
 	        </div>
+	       </a>
 	    </div>
 	  </div>
     </div>
@@ -89,7 +91,7 @@ a.alink:hover{
 		   range(start,end){
 			   let arr=[]
 			   let leng=end-start;
-			   for(let i=start;i<=leng;i++)
+			   for(let i=0;i<=leng;i++)
 			   {
 				   arr[i]=start;
 				   start++;
