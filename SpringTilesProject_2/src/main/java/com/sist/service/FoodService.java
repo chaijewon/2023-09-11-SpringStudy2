@@ -15,6 +15,7 @@ public interface FoodService {
 	public List<ReplyVO> replyListData(int fno);
 	public void replyInsert(ReplyVO vo);
 	public void replyDelete(int rno);
+	public void replyUpdate(ReplyVO vo);
 	//Member관련 
 	public MemberVO isLogin(String id,String pwd);
 }

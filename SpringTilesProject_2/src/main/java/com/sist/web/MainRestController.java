@@ -113,4 +113,13 @@ public class MainRestController {
 	   service.replyDelete(rno);
 	   return commonsData(fno);
    }
+   
+   @GetMapping(value="reply/update_vue.do",produces = "text/plain;charset=UTF-8")
+   public String reply_update(ReplyVO vo) throws Exception
+   {
+	   service.replyUpdate(vo);
+	   
+	   return commonsData(vo.getFno());
+	   
+   }
 }

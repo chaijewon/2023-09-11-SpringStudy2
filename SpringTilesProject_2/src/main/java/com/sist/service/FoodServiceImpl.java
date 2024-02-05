@@ -49,5 +49,10 @@ public class FoodServiceImpl implements FoodService{
 		// TODO Auto-generated method stub
 		rDao.replyDelete(rno);
 	}
+	@Override
+	public void replyUpdate(ReplyVO vo) {
+		// TODO Auto-generated method stub
+		rDao.replyUpdate(vo);
+	}
     
 }

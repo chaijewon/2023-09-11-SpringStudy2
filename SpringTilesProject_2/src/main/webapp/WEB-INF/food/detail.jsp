@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 <script src="https://unpkg.com/vue@3"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <style type="text/css">
 a.alink:hover{
    cursor: pointer;
@@ -72,7 +73,7 @@ a.alink:hover{
             <td class="text-left">◑{{vo.name}}({{vo.dbday}})</td>
             <td class="text-right">
               <span v-if="vo.id===sessionId">
-                <input type=button value="수정" class="btn-xs btn-success" style="margin-left: 3px">
+                <input type=button value="수정" class="btn-xs btn-success updates" style="margin-left: 3px" :id="'up'+vo.rno" @click="replyUpdateForm(vo.rno)">
                 <input type=button value="삭제" class="btn-xs btn-info" @click="replyDelete(vo.rno)">
               </span>
             </td>
@@ -82,6 +83,14 @@ a.alink:hover{
               <pre style="white-space: pre-wrap;background-color: white;border:none">{{vo.msg}}</pre>
              </td>
            </tr>
+           
+           <tr :id="'u'+vo.rno" class="ups" style="display:none">
+            <td colspan="2">
+             <textarea rows="5" cols="90" style="float: left" :id="'msg'+vo.rno">{{vo.msg}}</textarea>
+             <input type=button value="댓글수정" style="float: left;height: 96px" class="btn-danger" @click="replyUpdate(vo.rno)">
+           </td>
+          </tr>
+           
           </table>
         </td>
        </tr>
@@ -130,7 +139,9 @@ a.alink:hover{
 			sessionId:'${id}',
 			reply_list:[],
 			rno:0,
-			msg:''
+			msg:'',
+			bCheck:true
+			
 		}  
 	  },
 	  mounted(){
@@ -145,6 +156,40 @@ a.alink:hover{
 	  },
 	  methods:{
 		  // 수정 
+		  replyUpdateForm(rno){
+			 $('.ups').hide();
+			 $('.updates').attr("value","수정")
+			 if(this.bCheck===true)
+			 {
+				$('#u'+rno).show();
+				$('#up'+rno).attr("value","취소")
+				this.bCheck=false
+			 }
+			 else
+			 {
+				 $('#u'+rno).hide();
+				 $('#up'+rno).text("수정")
+				 this.bCheck=true
+			 }
+			  
+		  },
+		  replyUpdate(rno){
+			let msg=$('#msg'+rno).val();
+			axios.get('../reply/update_vue.do',{
+				params:{
+					rno:rno,
+					fno:this.fno,
+					msg:msg
+					
+				}
+			}).then(response=>{
+				// 상태 관리 => 데이터 변경 
+				this.reply_list=response.data
+				$('#u'+rno).hide()
+				$('#up'+rno).attr("value","수정")
+			})
+		  },
+		  
 		  // 삭제 
 		  replyDelete(rno){
 			  axios.get("../reply/delete_vue.do",{

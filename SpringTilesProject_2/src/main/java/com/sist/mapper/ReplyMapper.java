@@ -4,6 +4,7 @@ import java.util.*;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.sist.vo.*;
 
@@ -20,6 +21,10 @@ public interface ReplyMapper {
   public void replyInsert(ReplyVO vo);
   
   // 수정 
+  @Update("UPDATE vueReply SET "
+		 +"msg=#{msg} "
+		 +"WHERE rno=#{rno}")
+  public void replyUpdate(ReplyVO vo);
   // 삭제
   @Delete("DELETE FROM vueReply WHERE rno=#{rno}")
   public void replyDelete(int rno);
