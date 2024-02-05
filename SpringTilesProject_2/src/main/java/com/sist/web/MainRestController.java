@@ -77,4 +77,40 @@ public class MainRestController {
    {
 	   session.invalidate();
    }
+   
+   public String commonsData(int fno) throws Exception
+   {
+	  List<ReplyVO> list=service.replyListData(fno);
+	  ObjectMapper mapper=new ObjectMapper();
+	  String json=mapper.writeValueAsString(list);
+	  return json;
+   }
+   
+   @GetMapping(value="reply/list_vue.do",produces = "text/plain;charset=UTF-8")
+   public String reply_list(int fno) throws Exception
+   {
+	   return commonsData(fno);  
+   }
+   
+   @GetMapping(value="reply/insert_vue.do",produces = "text/plain;charset=UTF-8")
+   public String reply_insert(int fno,String msg,HttpSession session)
+   throws Exception
+   {
+	   String id=(String)session.getAttribute("id");
+	   String name=(String)session.getAttribute("name");
+	   ReplyVO vo=new ReplyVO();
+	   vo.setFno(fno);
+	   vo.setId(id);
+	   vo.setName(name);
+	   vo.setMsg(msg);
+	   service.replyInsert(vo);
+	   return commonsData(fno);
+   }
+   
+   @GetMapping(value="reply/delete_vue.do",produces = "text/plain;charset=UTF-8")
+   public String reply_delete(int rno,int fno) throws Exception
+   {
+	   service.replyDelete(rno);
+	   return commonsData(fno);
+   }
 }

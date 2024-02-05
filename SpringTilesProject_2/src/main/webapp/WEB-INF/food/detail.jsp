@@ -67,14 +67,19 @@ a.alink:hover{
      <table class="table">
        <tr>
         <td>
-          <table class="table">
+          <table class="table" v-for="vo in reply_list">
            <tr>
-            <td class="text-left"></td>
-            <td class="text-right"></td>
+            <td class="text-left">◑{{vo.name}}({{vo.dbday}})</td>
+            <td class="text-right">
+              <span v-if="vo.id===sessionId">
+                <input type=button value="수정" class="btn-xs btn-success" style="margin-left: 3px">
+                <input type=button value="삭제" class="btn-xs btn-info" @click="replyDelete(vo.rno)">
+              </span>
+            </td>
            </tr>
            <tr>
              <td colspan="2">
-              <pre style="white-space: pre-wrap;background-color: white;border:none"></pre>
+              <pre style="white-space: pre-wrap;background-color: white;border:none">{{vo.msg}}</pre>
              </td>
            </tr>
           </table>
@@ -84,8 +89,8 @@ a.alink:hover{
      <table class="table" v-show="sessionId!=''">
        <tr>
          <td class="text-left">
-          <textarea rows="5" cols="90" style="float: left"></textarea>
-          <input type=button value="댓글쓰기" style="float: left;height: 96px" class="btn-danger">
+          <textarea rows="5" cols="90" style="float: left" v-model="msg" ref="msg"></textarea>
+          <input type=button value="댓글쓰기" style="float: left;height: 96px" class="btn-danger" @click="replyInsert()">
          </td>
        </tr>
      </table>
@@ -124,16 +129,52 @@ a.alink:hover{
 			fno:${fno},
 			sessionId:'${id}',
 			reply_list:[],
-			rno:0
+			rno:0,
+			msg:''
 		}  
 	  },
 	  mounted(){
 		  // 시작과 동시에 댓글 읽기 
+		  axios.get('../reply/list_vue.do',{
+			  params:{
+				  fno:this.fno
+			  }
+		  }).then(response=>{
+			  this.reply_list=response.data
+		  })
 	  },
 	  methods:{
 		  // 수정 
 		  // 삭제 
+		  replyDelete(rno){
+			  axios.get("../reply/delete_vue.do",{
+				  params:{
+					  rno:rno,
+					  fno:this.fno
+				  }
+			  }).then(response=>{
+				  this.reply_list=response.data
+			  })
+		  },
+		  
 		  // 추가
+		  replyInsert(){
+			  if(this.msg==="")
+			  {
+				  this.$refs.msg.focus()
+				  return
+			  }
+			  
+			  axios.get('../reply/insert_vue.do',{
+				  params:{
+					  fno:this.fno,
+					  msg:this.msg
+				  }
+			  }).then(response=>{
+				  this.reply_list=response.data
+				  this.msg=""
+			  })
+		  }
 	  }
   }).mount('#replyApp')
   </script>
