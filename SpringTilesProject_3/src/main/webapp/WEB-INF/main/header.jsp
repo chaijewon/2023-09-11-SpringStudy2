@@ -16,7 +16,7 @@
       <li class="active"><a href="../main/main.do">Home</a></li>
       <li><a href="../goods/goods_main.do">Goods</a></li>
       <li><a href="#">MyPage</a></li>
-      <li><a href="#">WebChat</a></li>
+      <li><a href="../chat/chat.do">WebChat</a></li>
     </ul>
   </div>
 </nav>

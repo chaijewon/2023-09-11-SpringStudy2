@@ -11,16 +11,7 @@
 <body>
   <div class="container" id="foodlistApp">
     <div class="row">
-      <div class="col-md-3" v-for="vo in food_list">
-	    <div class="thumbnail">
-	      <a href="#">
-	        <img :src="'https://www.menupan.com'+vo.poster" style="width:100%">
-	        <div class="caption">
-	          <p style="font-size: 8px">{{vo.name}}</p>
-	        </div>
-	      </a>
-	    </div>
-	  </div>
+      <card v-bind:food_list="food_list"/>
     </div>
     <div style="height: 10px"></div>
     <div class="row">
@@ -34,7 +25,24 @@
     </div>
   </div>
   <script>
+    const Card={
+    		props:['food_list'],
+    		template:
+    			`<div class="col-md-3" v-for="vo in food_list">
+			    <div class="thumbnail">
+			      <a href="#">
+			        <img :src="'https://www.menupan.com'+vo.poster" style="width:100%">
+			        <div class="caption">
+			          <p style="font-size: 8px">{{vo.name}}</p>
+			        </div>
+			      </a>
+			    </div>
+			  </div>`
+    }
     let foodlistApp=Vue.createApp({
+    	components:{
+    		'card':Card
+    	},
     	data(){
     		return {
     			food_list:[],
