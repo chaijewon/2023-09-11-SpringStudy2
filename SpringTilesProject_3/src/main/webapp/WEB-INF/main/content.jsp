@@ -76,6 +76,7 @@
     				}
     			}).then(response=>{
     				//{curpage:1,totalpage:10,startPage:1,endPage:10} => Map
+    				
     				this.curpage=response.data.curpage
     				this.totalpage=response.data.totalpage
     				this.startPage=response.data.startPage
