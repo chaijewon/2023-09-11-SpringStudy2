@@ -23,9 +23,9 @@
     <put-attribute name="content" value="/WEB-INF/{1}/{2}.jsp"/>
   </definition>
   <definition name="mypage/*" extends="mypage">
-    <put-attribute name="content" value="/WEB-INF/{1}/{2}.jsp"/>
+    <put-attribute name="content" value="/WEB-INF/mypage/{1}.jsp"/>
   </definition>
   <definition name="goods/*" extends="goods">
-    <put-attribute name="content" value="/WEB-INF/{1}/{2}.jsp"/>
+    <put-attribute name="content" value="/WEB-INF/goods/{1}.jsp"/>
   </definition>
 </tiles-definitions>
