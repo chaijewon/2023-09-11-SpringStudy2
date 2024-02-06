@@ -49,10 +49,46 @@ function onClose(event)
 }
 function onMessage(event)
 {
+	let data=event.data; // 보낸 데이터 => "msg[이름]:message"
+	if(data.substring(0,4)=="msg:")
+	{
+		appendMessage(data.substring(4));
+	}
+}
+function appendMessage(msg)
+{
+	 $('#recvMsg').append(msg+"<br>")
+	 let ch=$('#chatArea').height()
+	 let m=$('#recvMsg').height()-ch
+	 $('#chatArea').scrollTop(m)
+}
+function send()
+{
+	let msg=$('#sendMsg').val()
+	if(msg.trim()==="")
+	{
+		$('#sendMsg').focus()
+		return
+	}
+	websocket.send('msg:['+name+']'+msg)
+	$('#sendMsg').val("")
+	$('#sendMsg').focus()
 }
 $(function(){
 	$('#startBtn').click(function(){
 		connection();
+	})
+	$('#endBtn').click(function(){
+		websocket.close();
+	})
+	$('#sendBtn').click(function(){
+		send()
+	})
+	$('#sendMsg').keydown(function(key){
+		if(key.keyCode==13)
+		{
+			send()
+		}
 	})
 })
 </script>
@@ -66,7 +102,7 @@ $(function(){
          <td>
            <input type=text class="input-sm" id="name" size=15>
            <input type=button class="btn-sm btn-danger" id="startBtn" value="입장">
-           <input type=button class="btn-sm btn-primary" id="startBtn" value="퇴장">
+           <input type=button class="btn-sm btn-primary" id="endBtn" value="퇴장">
          </td>
         </tr>
         <tr>
