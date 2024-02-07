@@ -70,7 +70,7 @@ function send()
 		$('#sendMsg').focus()
 		return
 	}
-	websocket.send('msg:['+name+']'+msg)
+	websocket.send('msg:['+name+']'+msg)// 서버로 전송 ==> onMessage()
 	$('#sendMsg').val("")
 	$('#sendMsg').focus()
 }
@@ -85,7 +85,7 @@ $(function(){
 		send()
 	})
 	$('#sendMsg').keydown(function(key){
-		if(key.keyCode==13)
+		if(key.keyCode==13)//enter
 		{
 			send()
 		}

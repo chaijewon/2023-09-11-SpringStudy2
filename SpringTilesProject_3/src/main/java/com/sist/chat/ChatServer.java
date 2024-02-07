@@ -9,7 +9,7 @@ import javax.websocket.server.ServerEndpoint;
 @ServerEndpoint("/site/chat/chat-ws")
 public class ChatServer {
    //저장 => 접속자 정보 저장 
-   private static List<Session> users=new ArrayList<Session>();
+   private static List<Session> users=Collections.synchronizedList(new ArrayList<Session>());
    // websocket에 존재하는 session
    // 클라이언트에 접속시 호출되는 메소드 
    @OnOpen
