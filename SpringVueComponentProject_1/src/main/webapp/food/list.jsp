@@ -14,6 +14,9 @@
   margin: 0px auto;
   width:960px;
 }
+a.link:hover{
+   cursor: pointer;
+}
 </style>
 <script src="https://unpkg.com/vue@3"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -34,10 +37,17 @@
     </div>
     <div style="height: 20px"></div>
     <div class="row">
-     
+      <div class="text-center">
+        <ul class="pagination">
+          <li v-if="startPage>1"><a class="link" @click="prev()">&laquo</a></li>
+          <li v-for="i in range(startPage,endPage)" :class="i===curpage?'active':''"><a class="link" @click="pageChange(i)">{{i}}</a></li>
+          <li v-if="endPage<totalpage"><a class="link" @click="next()">&raquo</a></li>
+        </ul>
+      </div>
     </div>
   </div>
   <script>
+   
    let foodApp=Vue.createApp({
 	   // 변수 설정 => HTML에 값을 전송 
 	   data(){
@@ -83,10 +93,33 @@
 				   this.startPage=response.data.startPage
 				   this.endPage=response.data.endPage
 			   })
+		   },
+		   range(start,end){
+			   let arr=[]
+			   let leng=end-start
+			   for(let i=0;i<=leng;i++)
+			   {
+				  arr[i]=start
+				  start++;
+			   }
+			   return arr
+		   },
+		   perv(){
+			   this.curpage=this.startPage-1
+			   this.dataRecv()
+		   },
+		   next(){
+			  this.curpage=this.endPage+1
+			  this.dataRecv()
+		   },
+		   pageChange(page){
+			   this.curpage=page
+			   this.dataRecv()
 		   }
 	   },
+	   
 	   components:{
-		   
+		  
 	   }
 	   // computed , watch , filter => router(React)
    })
