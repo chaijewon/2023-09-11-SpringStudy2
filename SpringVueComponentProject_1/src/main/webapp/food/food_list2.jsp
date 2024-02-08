@@ -13,6 +13,9 @@
 .row {
   margin: 0px auto;
   width:960px;
+},
+a.link:hover{
+  cursor: pointer;
 }
 </style>
 <script src="https://unpkg.com/vue@3"></script>
@@ -23,7 +26,7 @@
 <body>
   <div class="container">
     <div class="row">
-      <food_card v-bind:food_list="food_list"></food_card>
+      <food_card></food_card>
     </div>
     <div style="height: 10px"></div>
     <div class="row">
@@ -31,9 +34,14 @@
         <pagination v-bind:page_list="page_list"></pagination>
       </div>
     </div>
+    <div class="row">
+      <gcom></gcom>
+    </div>
   </div>
   <script>
-    
+    const gcom={
+    	  template:`<div>{{$parent.startPage}}</div>`
+    }
     let app=Vue.createApp({
     	data(){
     		return {
@@ -87,9 +95,20 @@
     		pageChange(page){
     			this.curpage=page
     			this.dataRecv()
-    		}
+    		},
+    		range(start,end){
+				let arr=[]
+			    let leng=end-start
+			    for(let i=0;i<=leng;i++)
+			    {
+			    	arr[i]=start
+			    	start++;
+			    }
+			    return arr
+			}
     	}
     })
+    app.component('gcom',gcom);
     app.mount(".container")
   </script>
 </body>
