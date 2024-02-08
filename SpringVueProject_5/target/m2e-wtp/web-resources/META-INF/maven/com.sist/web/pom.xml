@@ -21,6 +21,13 @@
 		</repository>
 	</repositories>
 	<dependencies>
+	    <!-- selenium -->
+	    <dependency>
+		    <groupId>org.seleniumhq.selenium</groupId>
+		    <artifactId>selenium-java</artifactId>
+		    <version>4.17.0</version>
+		</dependency>
+	    
 	    <!-- security -->
 	    <dependency>
 		    <groupId>org.springframework.security</groupId>
