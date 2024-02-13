@@ -1,33 +1,31 @@
 package com.sist.service;
-import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import java.util.*;
 import com.sist.dao.*;
 import com.sist.vo.*;
-
 @Service
-public class FoodServiceImpl implements FoodService{
+public class FreeBoardServiceImpl implements FreeBoardSevice{
 	@Autowired
-    private FoodDAO fDao;
+    private FreeBoardDAO fDao;
 	
 	@Override
-	public List<FoodVO> foodFindData(Map map) {
+	public List<FreeBoardVO> freeboardListData(int start, int end) {
 		// TODO Auto-generated method stub
-		return fDao.foodFindData(map);
+		return fDao.freeboardListData(start, end);
 	}
 
 	@Override
-	public int foodFindCount(Map map) {
+	public int freeboardTotalPage() {
 		// TODO Auto-generated method stub
-		return fDao.foodFindCount(map);
+		return fDao.freeboardTotalPage();
 	}
 
 	@Override
-	public FoodVO foodDetailData(int fno) {
+	public void freeboardInsert(FreeBoardVO vo) {
 		// TODO Auto-generated method stub
-		return fDao.foodDetailData(fno);
+		fDao.freeboardInsert(vo);
 	}
-
+  
 }
