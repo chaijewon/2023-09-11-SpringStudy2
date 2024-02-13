@@ -12,12 +12,6 @@
     <div id="logo" class="fl_left">
       <h1><a href="index.html">실시간 맛집 추천</a></h1>
     </div>
-    <div class="fl_right">
-      <ul class="inline">
-        <li><i class="fa fa-phone"></i> +00 (123) 456 7890</li>
-        <li><i class="fa fa-envelope-o"></i> info@domain.com</li>
-      </ul>
-    </div>
     </header>
 </div>
 <div class="wrapper row2">
@@ -58,7 +52,11 @@
       <li><a href="#">실시간 채팅</a></li>
       <li><a href="#">마이페이지</a></li>
       <!-- <li><a href="#">관리자페이지</a></li> -->
+      <!-- <ul class="nav navbar-nav navbar-right"> -->
+       <li class="nav navbar-nav navbar-right"><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      <!-- </ul> -->
     </ul>
+    
     </nav>
 </div>
 </body>

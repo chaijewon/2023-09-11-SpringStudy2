@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.sist.vo.FoodVO;
+import com.sist.vo.FreeBoardVO;
 
 public interface FoodService {
 	public List<FoodVO> foodFindData(Map map);

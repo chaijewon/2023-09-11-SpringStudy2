@@ -4,6 +4,7 @@ import java.util.*;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.sist.vo.FreeBoardVO;
 public interface FreeBoardMapper {
@@ -24,6 +25,15 @@ public interface FreeBoardMapper {
    public void freeboardInsert(FreeBoardVO vo);
    
    // 상세보기
+   @Update("UPDATE projectFreeBoard SET "
+		  +"hit=hit+1 "
+		  +"WHERE no=#{no}")
+   public void hitIncrement(int no);
+   
+   @Select("SELECT no,name,subject,content,hit,TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS') as dbday "
+		  +"FROM projectFreeBoard "
+		  +"WHERE no=#{no}")
+   public FreeBoardVO freeboardDetailData(int no);
    // 수정 
    // 삭제 
 }

@@ -6,8 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery.js"></script>
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://unpkg.com/vue@3"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -41,13 +40,24 @@ a.link:hover,img.img_click:hover{
           <li v-if="endPage<totalpage"><a class="link" @click="next()">Next &raquo;</a></li>
         </ul>
       </nav>
-      <div id="dialog" title="맛집 상세 보기">
-        <detail_dialog v-show="isShow" v-bind:food_detail="food_detail"></detail_dialog>
+      <div id="dialog" title="맛집 상세 보기" v-show="isShow">
+        <detail_dialog  v-bind:food_detail="food_detail"></detail_dialog>
       </div>
      </div>
     <div class="clear"></div>
   </main>
 </div>
+<%--
+   class A
+   {
+       B b=new B() => 매개변수
+                      => 태그의 속성 , 멤버변수  
+   }
+   class B
+   {
+      
+   }
+ --%>
 <script>
   const detailComponent={
 	  props:['food_detail'],
