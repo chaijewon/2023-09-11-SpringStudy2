@@ -10,4 +10,9 @@ public class FoodController {
    {
 	   return "food/food_find";
    }
+   @GetMapping("food/food_list.do")
+   public String food_list()
+   {
+	   return "food/food_list";
+   }
 }

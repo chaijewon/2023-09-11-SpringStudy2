@@ -69,4 +69,34 @@ public class BoardRestController {
 	   }
 	   return result;
    }
+   @GetMapping(value="detail_vue.do",produces = "text/plain;charset=UTF-8")
+   public String freeboard_detail(int no) throws Exception
+   {
+	   FreeBoardVO vo=service.freeboardDetailData(no);
+	   // VO => JSON => {}  => List => JSON => [{},{},{}...] vue , react , ajax => JSON
+	   ObjectMapper mapper=new ObjectMapper();
+	   String json=mapper.writeValueAsString(vo);
+	   // {no:1,name:'',subject:''...} => 키는 멤버변수
+	   return json;
+   }
+   @GetMapping(value="delete_vue.do",produces = "text/plain;charset=UTF-8")
+   public String freeboard_delete(int no,String pwd)
+   {
+	   String result=service.freeboardDelete(no, pwd);
+	   return result;
+   }
+   @GetMapping(value="update_vue.do",produces = "text/plain;charset=UTF-8")
+   public String freeboard_update(int no) throws Exception
+   {
+	   FreeBoardVO vo=service.freeboardUpdateData(no);
+	   ObjectMapper mapper=new ObjectMapper();
+	   String json=mapper.writeValueAsString(vo);
+	   return json;
+   }
+   @PostMapping(value="update_ok_vue.do",produces = "text/plain;charset=UTF-8")
+   public String freeboard_update_ok(FreeBoardVO vo)
+   {
+	   String result=service.freeboardUpdate(vo);
+	   return result;
+   }
 }

@@ -6,4 +6,7 @@ public interface FreeBoardSevice {
 	public int freeboardTotalPage();
 	public void freeboardInsert(FreeBoardVO vo);
 	public FreeBoardVO freeboardDetailData(int no);
+	public String freeboardDelete(int no,String pwd);
+	public FreeBoardVO freeboardUpdateData(int no);
+	public String freeboardUpdate(FreeBoardVO vo);
 }

@@ -10,4 +10,8 @@ public interface FoodService {
 	public List<FoodVO> foodFindData(Map map);
 	public int foodFindCount(Map map);
 	public FoodVO foodDetailData(int fno);
+	public List<FoodVO> foodListData(Map map);
+	public int foodListCount();
+	// recipe
+	
 }

@@ -2,6 +2,7 @@ package com.sist.mapper;
 import java.util.*;
 
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.sist.vo.*;
 public interface FoodMapper {
@@ -23,8 +24,24 @@ public interface FoodMapper {
        private double score;
        private String poster,name,type,address,phone,theme,price,time,seat,sessionId;
    */
-  @Select("SELECT fno,score,poster,name,type,address,phone,theme,price,time,seat "
-		 +"FROM food_menu_house "
-		 +"WHERE fno=#{fno}")
-  public FoodVO foodDetailData(int fno);
+      @Select("SELECT fno,score,poster,name,type,address,phone,theme,price,time,seat "
+		     +"FROM food_menu_house "
+		     +"WHERE fno=#{fno}")
+      public FoodVO foodDetailData(int fno);
+  
+      @Update("UPDATE food_menu_house SET "
+    		 +"hit=hit+1 "
+    		 +"WHERE fno=#{fno}")
+      public void foodHitIncrement(int fno);
+  
+      @Select("SELECT fno,poster,name,num "
+			 +"FROM (SELECT fno,poster,name,rownum as num "
+			 +"FROM (SELECT fno,poster,name "
+			 +"FROM food_menu_house "
+			 +"ORDER BY fno ASC)) "
+			 +"WHERE num BETWEEN #{start} AND #{end}")
+	  public List<FoodVO> foodListData(Map map);
+	  
+	  @Select("SELECT CEIL(COUNT(*)/20.0) FROM food_menu_house")
+	  public int foodListCount();
 }

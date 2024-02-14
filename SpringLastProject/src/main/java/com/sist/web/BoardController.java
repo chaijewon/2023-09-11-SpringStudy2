@@ -25,5 +25,11 @@ public class BoardController {
 	   model.addAttribute("no", no);
 	   return "freeboard/detail";
    }
+   @GetMapping("update.do")
+   public String freeboard_update(int no,Model model)
+   {
+	   model.addAttribute("no", no);
+	   return "freeboard/update";
+   }
    
 }

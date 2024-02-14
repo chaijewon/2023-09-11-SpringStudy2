@@ -30,4 +30,16 @@ public class FoodServiceImpl implements FoodService{
 		return fDao.foodDetailData(fno);
 	}
 
+	@Override
+	public List<FoodVO> foodListData(Map map) {
+		// TODO Auto-generated method stub
+		return fDao.foodListData(map);
+	}
+
+	@Override
+	public int foodListCount() {
+		// TODO Auto-generated method stub
+		return fDao.foodListCount();
+	}
+
 }

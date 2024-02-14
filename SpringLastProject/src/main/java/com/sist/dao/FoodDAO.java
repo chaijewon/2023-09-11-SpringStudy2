@@ -26,4 +26,14 @@ public class FoodDAO {
    {
 	   return mapper.foodDetailData(fno);
    }
+   
+   public List<FoodVO> foodListData(Map map)
+   {
+	   return mapper.foodListData(map);
+   }
+   
+   public int foodListCount()
+   {
+	   return mapper.foodListCount();
+   }
 }

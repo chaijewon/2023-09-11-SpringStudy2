@@ -125,7 +125,7 @@ public class MainClass {
 				System.setProperty("webdriver.chrome.driver", "C:\\chromedriver-win64\\chromedriver.exe");
 				WebDriver driver = new ChromeDriver();
 			
-				for(int j=1;j<=5;j++)
+				for(int j=1;j<=5411;j++)
 				{
 				System.out.println(j+"페이지==============================");
 				// 2. 웹 페이지 접속
