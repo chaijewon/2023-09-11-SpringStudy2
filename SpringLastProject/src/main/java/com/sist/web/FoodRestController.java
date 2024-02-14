@@ -174,4 +174,12 @@ public class FoodRestController {
 	   
 	   return json;
    }
+   @GetMapping(value="food_detail_vue.do",produces = "text/plain;charset=UTF-8")
+   public String food_detail_vue(int fno) throws Exception
+   {
+	   FoodVO vo=service.foodListDetailData(fno);
+	   ObjectMapper mapper=new ObjectMapper();
+	   String json=mapper.writeValueAsString(vo);
+	   return json; // response.data
+   }
 }

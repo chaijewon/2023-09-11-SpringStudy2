@@ -44,4 +44,10 @@ public interface FoodMapper {
 	  
 	  @Select("SELECT CEIL(COUNT(*)/20.0) FROM food_menu_house")
 	  public int foodListCount();
+	  
+	  @Select("SELECT fno,name,rownum "
+			 +"FROM (SELECT fno,name "
+			 +"FROM food_menu_house ORDER BY hit DESC) "
+			 +"WHERE rownum<=7")
+	  public List<FoodVO> foodTop7();
 }

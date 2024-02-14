@@ -24,16 +24,16 @@ a.link:hover,img.img_click:hover{
         <figure>
           <header class="heading"></header>
           <ul class="nospace clear">
-            <li v-for="(vo,index) in food_list" :class="index%4==0?'one_quarter first':'one_quarter'"><a :href="'../food/food_list_detail.do?no='+vo.no"><img :src="'http://www.menupan.com'+vo.poster" :title="vo.name"></a></li>
+            <li v-for="(vo,index) in food_list" :class="index%4==0?'one_quarter first':'one_quarter'"><a :href="'../food/food_list_detail.do?fno='+vo.fno"><img :src="'http://www.menupan.com'+vo.poster" :title="vo.name"></a></li>
           </ul>
           <figcaption></figcaption>
         </figure>
       </div>
       <nav class="pagination">
         <ul>
-          <li v-if="startPage>1"><a href="#">&laquo; Previous</a></li>
-          <li><a href="#">1</a></li>
-          <li v-if="endPage<totalpage"><a href="#">Next &raquo;</a></li>
+          <li v-if="startPage>1"><a @click="prev()" class="link">&laquo; Previous</a></li>
+          <li v-for="i in range(startPage,endPage)" :class="i==curpage?'current':''"><a @click="pageChange(i)" class="link">{{i}}</a></li>
+          <li v-if="endPage<totalpage"><a @click="next()" class="link">Next &raquo;</a></li>
         </ul>
       </nav>
       </div>
@@ -99,6 +99,28 @@ a.link:hover,img.img_click:hover{
 				  this.startPage=response.data.startPage
 				  this.endPage=response.data.endPage
 			  })
+		  },
+		  range(start,end){
+			  let arr=[]
+			  let lang=end-start
+			  for(let i=0;i<=lang;i++)
+			  {
+				  arr[i]=start
+				  start++
+			  }
+			  return arr
+		  },
+		  prev(){
+			  this.curpage=this.startPage-1
+			  this.dataRecv()
+		  },
+		  next(){
+			  this.curpage=this.endPage+1
+			  this.dataRecv()
+		  },
+		  pageChange(page){
+			  this.curpage=page;
+			  this.dataRecv()
 		  }
 	  }
   }).mount("#foodApp")
