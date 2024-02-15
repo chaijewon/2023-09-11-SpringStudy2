@@ -35,14 +35,14 @@ a.link:hover,img.img_click:hover{
            </a> 
           </td>
           <td colspan="4">
-            <h3 style="color:orange"><a :href="'../recipe/chef_detail.do>cno='+vo.cno">{{vo.chef}}</a></h3>
+            <h3 style="color:orange"><a :href="'../recipe/chef_detail.do?cno='+vo.cno">{{vo.chef}}</a></h3>
           </td>
          </tr>
          <tr>
-           <td class="text-center"><img src="../images/icon/m1.png">&nbsp;{{vo.mem_cont1}}</td>
-           <td class="text-center"><img src="../images/icon/m2.png">&nbsp;{{vo.mem_cont2}}</td>
-           <td class="text-center"><img src="../images/icon/m3.png">&nbsp;{{vo.mem_cont7}}</td>
-           <td class="text-center"><img src="../images/icon/m4.png">&nbsp;{{vo.mem_cont3}}</td>
+           <td class="text-center"><img src="../images/icon/m1.png">&nbsp;{{vo.mem_cont1.toLocaleString()}}</td>
+           <td class="text-center"><img src="../images/icon/m2.png">&nbsp;{{vo.mem_cont2.toLocaleString()}}</td>
+           <td class="text-center"><img src="../images/icon/m3.png">&nbsp;{{vo.mem_cont7.toLocaleString()}}</td>
+           <td class="text-center"><img src="../images/icon/m4.png">&nbsp;{{vo.mem_cont3.toLocaleString()}}</td>
          </tr>
        </table>
      </td>

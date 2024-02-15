@@ -23,6 +23,7 @@ public class RecipeController {
    @GetMapping("recipe/chef_detail.do")
    public String chef_detail(int cno,Model model)
    {
+	   model.addAttribute("cno", cno);
 	   return "recipe/chef_detail";
    }
 }
