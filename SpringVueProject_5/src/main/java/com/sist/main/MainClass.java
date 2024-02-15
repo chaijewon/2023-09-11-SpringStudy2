@@ -154,14 +154,17 @@ public class MainClass {
 					List<WebElement> posters = driver.findElements(By.cssSelector("img[src*=\"/recipe/\"]"));
 					List<WebElement> chefs = driver.findElements(By.cssSelector(".common_sp_caption_rv_name a"));
 					List<WebElement> titles = driver.findElements(By.cssSelector(".common_sp_caption_tit"));
-					
+					RecipeDAO dao=new RecipeDAO();
+					int k=1;
 					for(int i=0;i<links.size();i++)
 					{
-						 System.out.println(links.get(i).getAttribute("href"));
-						 System.out.println(posters.get(i).getAttribute("src"));
-						 System.out.println(chefs.get(i).getText());
-						 System.out.println(titles.get(i).getText());
-						 System.out.println("====================================");
+						 //System.out.println(links.get(i).getAttribute("href"));
+						 //System.out.println(posters.get(i).getAttribute("src"));
+						 //System.out.println(chefs.get(i).getText());
+						 //System.out.println(titles.get(i).getText());
+						 //System.out.println("====================================");
+						try
+						{
 						 Recipe re=new Recipe(); 
 						 re.setNo(i+1);
 						 re.setTitle(titles.get(i).getText()); 
@@ -169,12 +172,16 @@ public class MainClass {
 						 re.setChef(chefs.get(i).getText());
 						 
 						 re.setLink(links.get(i).getAttribute("href"));
+						 dao.recipeInsert(re);
+						 System.out.println("k="+k);
+						 k++;
 							/*
 							 * String s="no,title,poster,chef,link\n"; try { FileWriter fw=new
 							 * FileWriter("c:\\springDev\\recipe.csv",true);
 							 * s=re.getNo()+","+re.getTitle()+","+re.getPoster()+","+re.getChef()+","+re.
 							 * getLink()+"\n"; fw.write(s); fw.close(); }catch(Exception ex) {}
 							 */
+						}catch(Exception e) {}
 					}
 					/*
 					 * Recipe re=new Recipe(); re.setTitle(title); re.setPoster(poster);
@@ -212,6 +219,7 @@ public class MainClass {
 		            e.printStackTrace();
 		        }*/
 				}	
+				System.out.println("저장 완료!!");
 				// 5. WebDriver 종료
 				driver.quit();
 			}

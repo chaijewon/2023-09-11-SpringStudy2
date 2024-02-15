@@ -35,6 +35,11 @@ public class BoardController {
 	   List<WordVO> list=mgr.wordListData(vo.getContent());
 	   model.addAttribute("list", list);
 	   model.addAttribute("no", no);
+	   /*
+	    *    request.setAttribute("nList", nList);
+	         request.setAttribute("fList", fList);
+	         request.setAttribute("newList", newList);
+	    */
 	   return "freeboard/detail";
    }
    @GetMapping("update.do")
