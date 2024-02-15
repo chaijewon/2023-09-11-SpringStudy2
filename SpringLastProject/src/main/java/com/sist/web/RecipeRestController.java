@@ -32,7 +32,6 @@ public class RecipeRestController {
     	
     	return json;
     }
-     
     @GetMapping(value="recipe/recipe_page_vue.do",produces = "text/plain;charset=UTF-8")
     public String recipe_page(int page) throws Exception
     {
@@ -167,6 +166,40 @@ public class RecipeRestController {
     	String json=mapper.writeValueAsString(map);
     	return json;
     }
-    
+    @GetMapping(value="recipe/recipe_test_vue.do",produces = "text/plain;charset=UTF-8")
+    public String recipe_test(int page) throws Exception
+    {
+    	int rowSize=20;
+    	int start=(rowSize*page)-(rowSize-1);
+    	int end=rowSize*page;
+    	
+    	List<RecipeVO> list=rService.recipeListData(start, end);
+    	
+    	int totalpage=rService.recipeTotalPage();
+    	final int BLOCK=10;
+    	int startPage=((page-1)/BLOCK*BLOCK)+1;
+    	int endPage=((page-1)/BLOCK*BLOCK)+BLOCK;
+    	int count=rService.recipeCount();
+    	if(endPage>totalpage)
+    		endPage=totalpage;
+    	DecimalFormat df=new DecimalFormat("###,###");
+    	String c=df.format(count);
+    	
+    	Map map=new HashMap();
+    	map.put("curpage", page);
+    	map.put("totalpage", totalpage);
+    	map.put("startPage", startPage);
+    	map.put("endPage", endPage);
+    	map.put("count", c);
+    	
+    	Map tMap=new HashMap();
+    	tMap.put("list",list); // {} > response.data
+    	// {list:[],pages:{curpage...}}
+    	tMap.put("pages", map);
+    	
+    	ObjectMapper mapper=new ObjectMapper();
+    	String json=mapper.writeValueAsString(tMap);
+    	return json;
+    }
     
 }
