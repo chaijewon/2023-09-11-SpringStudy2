@@ -1,10 +1,12 @@
 package com.sist.mapper;
+
 import java.util.*;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.sist.vo.*;
+
 public interface RecipeMapper {
 	@Select("SELECT no,title,poster,rownum "
 			 +"FROM (SELECT no,title,poster "
@@ -19,17 +21,23 @@ public interface RecipeMapper {
     public List<ChefVO> chefHome12();
 	
 	// 목록 
-	@Select("SELECT COUNT(*) FROM recipe")
+	@Select("SELECT COUNT(*) FROM recipe "
+		   +"WHERE no IN(SELECT no FROM recipe "
+		   +"intersect SELECT no FROM recipeDetail)")
 	public int recipeCount();
 	
 	@Select("SELECT no,title,poster,num "
 		   +"FROM (SELECT no,title,poster,rownum as num "
 		   +"FROM (SELECT /*+ INDEX_ASC(recipe recipe_no_pk)*/no,title,poster "
-		   +"FROM recipe)) "
+		   +"FROM recipe WHERE no IN(SELECT no FROM recipe "
+		   +"intersect SELECT no FROM recipeDetail)"
+		   +")) "
 		   +"WHERE num BETWEEN #{start} AND #{end}")
 	public List<RecipeVO> recipeListData(@Param("start") int start,@Param("end") int end);
 	
-	@Select("SELECT CEIL(COUNT(*)/20.0) FROM recipe")
+	@Select("SELECT CEIL(COUNT(*)/20.0) FROM recipe "
+			+"WHERE no IN(SELECT no FROM recipe "
+			+"intersect SELECT no FROM recipeDetail)")
 	public int recipeTotalPage();
 	// 상세보기 (*******) 
 	// 쉐프 
@@ -66,12 +74,27 @@ public interface RecipeMapper {
 		  +"WHERE chef=(SELECT chef FROM chef WHERE cno=#{cno}) "
 		  +"AND title LIKE '%'||#{ss}||'%'")
    public int chefDetailFindTotalPage(Map map);
+   
+   /*
+    *  NO                    NUMBER         
+POSTER       NOT NULL VARCHAR2(300)  
+TITLE        NOT NULL VARCHAR2(1000) 
+CHEF         NOT NULL VARCHAR2(200)  
+CHEF_POSTER           VARCHAR2(300)  
+CHEF_PROFILE          VARCHAR2(1000) 
+INFO1                 VARCHAR2(100)  
+INFO2                 VARCHAR2(100)  
+INFO3                 VARCHAR2(100)  
+CONTENT               VARCHAR2(4000) 
+FOODMAKE              CLOB           
+STUFF                 CLOB 
+    */
+   @Select("SELECT * FROM recipeDetail "
+		  +"WHERE no=#{no}")
+   public RecipeDetailVO recipeDetailData(int no);
+   
+   @Select("SELECT goods_poster,goods_name,goods_price "
+		  +"FROM goods_all "
+		  +"WHERE goods_name LIKE '%'||#{goods_name}||'%'")
+   public List<GoodsVO> recipeGoodsData(String goods_name);
 }
-
-
-
-
-
-
-
-
