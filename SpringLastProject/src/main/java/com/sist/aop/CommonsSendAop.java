@@ -28,7 +28,7 @@ public class CommonsSendAop {
    {
 	   List<FoodVO> fList=service.foodTop7();
 	   List<NoticeVO> nList=service.noticeTop7();
-	   List<NewsVO>  newList=mgr.newsFind("맛집");
+	   //List<NewsVO>  newList=mgr.newsFind("맛집");
 	   /*
 	    *   @Controller , @RestController를 제외한 모든 클래스에서 request가 필요한 경우에 사용 
 	    *   =============================
@@ -40,7 +40,7 @@ public class CommonsSendAop {
 	   
 	   request.setAttribute("nList", nList);
 	   request.setAttribute("fList", fList);
-	   request.setAttribute("newList", newList);
+	   //request.setAttribute("newList", newList);
 			   
    }
 }

@@ -37,4 +37,19 @@ public interface MemberMapper {
    @Insert("INSERT INTO projectAuthority VALUES(#{userId},'ROLE_USER')")
    public void memberAuthorityInsert(String userId);
    //2. 로그인 
+   //1=>ID존재여부 확인
+   // memberIdCount()  재사용 
+   //2=>비밀번호 검색 
+   @Select("SELECT pm.userId,userName,userPwd,enabled,authority "
+		  +"FROM projectMember pm,projectAuthority pa "
+		  +"WHERE pm.userId=pa.userId "
+		  +"AND pm.userId=#{userId}")
+   public MemberVO memberLogin(String userId);
+   
+   @Select("SELECT pm.userId,userName,userPwd,enabled,authority "
+			  +"FROM projectMember pm,projectAuthority pa "
+			  +"WHERE pm.userId=pa.userId "
+			  +"AND pm.userId=#{userId}")
+	public MemberVO memberInfo(String userId);
+   
 }
