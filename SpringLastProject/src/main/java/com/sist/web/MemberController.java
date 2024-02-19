@@ -27,7 +27,8 @@ public class MemberController {
     @PostMapping("member/join_ok.do")
     public String member_join_ok(MemberVO vo)
     {
-    	System.out.println(encoder.encode("hong1234"));
+    	System.out.println("정상수행...");
+    	//System.out.println(encoder.encode("hong1234"));
     	vo.setPhone(vo.getPhone1()+"-"+vo.getPhone2());
     	String enPwd=encoder.encode(vo.getUserPwd());// 암호화
     	vo.setUserPwd(enPwd);

@@ -14,7 +14,7 @@
 <div class="wrapper row3" id="memberApp">
     <main class="container clear"> 
       <h2 class="sectiontitle">회원가입</h2>
-      <form method="post" action="../member/join_ok.do" @submit="submitForm">
+      <form method="post" action="../member/join_ok.do" @submit="submitForm()">
       <table class="table">
        <tr>
         <th width=15% class="text-center">ID</th>
@@ -51,8 +51,8 @@
         <th width=15% class="text-center">성별</th>
         <td width=85% class="inline">
           <%-- radio => group name --%>
-          <input type="radio" ref="sex" value="남자" checked v-model="sex" name="sex">남자
-          <input type="radio" ref="sex" value="여자" v-model="sex" name="sex">여자
+          <input type="radio"  value="남자" checked v-model="sex" name="sex">남자
+          <input type="radio"  value="여자" v-model="sex" name="sex">여자
         </td>
        </tr>
        <tr>
@@ -130,44 +130,59 @@
 			  birthday:'',
 			  userId:'',
 			  idOk:'',
-			  isReadOnly:false
+			  isReadOnly:false,
+			  sex:'',
+			  addr2:''
 		  }
 	  },
 	  methods:{
 		  submitForm(e){
-			if(this.userId && this.userName && this.userPwd && this.sex
+			  alert("submit call")
+			if(this.userId && this.userName && this.userPwd && this.sex && this.userPwd1
 			   && this.birthday && this.email && this.post && this.addr1
-			   && this.content && this.phone1 && this.phone2 && !this.idOk
-			   && !this.pwdOk
+			   && this.content && this.phone1 && this.phone2 && this.idOk!=''
+			   && this.pwdOk!='' && this.addr2 && this.sex
 			) 
 			{
+				alert("정상수행")
 				return true
 			}
 			
 			if(this.userId==='' || this.idOk!='')
 			{
 				this.$refs.userId.focus()
+				
 			}
 			else if(this.userName==='')
 			{
 				this.$refs.userName.focus()
+				
 			}
 			else if(this.userPwd==='')
 			{
 				this.$refs.userPwd.focus()
+				
 			}
 			else if(this.userPwd1==='')
 			{
 				this.$refs.userPwd1.focus()
+				
 			}
 			else if(this.userPwd!=this.userPwd1)
 			{
 				this.userPwd1='';
 				this.userPwd2=''
+				
 			}
 			else if(this.phone2=='')
 			{
 				this.$refs.phone2.focus()
+				
+			}
+			else if(this.email=='')
+			{
+				this.$refs.email.focus()
+				
 			}
 			e.preventDefault()
 		  },
