@@ -22,4 +22,10 @@ public class MemberServiceImpl implements MemberService{
         mDao.memberInsert(vo);		
 	}
 
+	@Override
+	public void memberAuthorityInsert(String userId) {
+		// TODO Auto-generated method stub
+		mDao.memberAuthorityInsert(userId);
+	}
+
 }

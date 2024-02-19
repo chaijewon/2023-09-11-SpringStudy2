@@ -5,4 +5,5 @@ import com.sist.vo.MemberVO;
 public interface MemberService {
 	public int memberIdCount(String userid);
 	public void memberInsert(MemberVO vo);
+	public void memberAuthorityInsert(String userId);
 }

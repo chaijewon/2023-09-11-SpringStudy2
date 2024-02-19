@@ -18,4 +18,8 @@ public class MemberDAO {
    {
 	   mapper.memberInsert(vo);
    }
+   public void memberAuthorityInsert(String userId)
+   {
+	   mapper.memberAuthorityInsert(userId);
+   }
 }

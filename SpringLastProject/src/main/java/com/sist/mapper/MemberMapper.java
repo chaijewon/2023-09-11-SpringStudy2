@@ -33,5 +33,8 @@ public interface MemberMapper {
 		  +"#{userPwd},#{sex},#{birthday},#{email},#{post},"
 		  +"#{addr1},#{addr2},#{phone},#{content})")
    public void memberInsert(MemberVO vo);
+   
+   @Insert("INSERT INTO projectAuthority VALUES(#{userId},'ROLE_USER')")
+   public void memberAuthorityInsert(String userId);
    //2. 로그인 
 }
