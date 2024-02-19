@@ -52,11 +52,10 @@ public class AutoLoginIntercepter extends HandlerInterceptorAdapter{
 					session.setAttribute("enabled", vo.getEnabled());
 					session.setAttribute("authority", vo.getAuthority());
 					session.setAttribute("userName", vo.getUserName());
-					
 			    	break;
 			    }
 			}
-			response.sendRedirect("../main/main.do");
+			//response.sendRedirect("../main/main.do");
 		}
 		
 		return super.preHandle(request, response, handler);
