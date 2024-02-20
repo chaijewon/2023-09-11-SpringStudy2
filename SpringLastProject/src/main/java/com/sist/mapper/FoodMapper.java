@@ -66,5 +66,12 @@ public interface FoodMapper {
 	  public List<FoodVO> foodNameInfoData(String name);
 	  
 	  
+	  @Select("SELECT no,title,poster,rownum "
+			 +"FROM recipe "
+			 +"WHERE no IN(SELECT no FROM recipe "
+			 +"INTERSECT SELECT no FROM recipeDetail) "
+			 +"AND REGEXP_LIKE(title,#{title}) "
+			 +"AND rownum<=12")
+	  public List<RecipeVO> foodRecipeData(String title);
 	  
 }

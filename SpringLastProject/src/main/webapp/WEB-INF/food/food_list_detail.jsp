@@ -40,7 +40,7 @@ a.link:hover,img.img_click:hover{
 	            </tr>
 	            <tr>
 	              <th width="15%">음식종류</th>
-	              <td width="55%">{{food_detail.type}}</td>
+	              <td width="55%" id="type">{{food_detail.type}}</td>
 	            </tr>
 	            <tr>
 	              <th width="15%">영업시간</th>
@@ -70,7 +70,20 @@ a.link:hover,img.img_click:hover{
     <div class="one_third"> 
        <div id="map" style="width:100%;height:350px;"></div>
     </div>
+    
     <div class="clear"></div>
+    <div class="row">
+     <div class="col-md-3" v-for="r in recipe_list">
+	    <div class="thumbnail">
+	      <a :href="'../recipe/recipe_detail.do?no='+r.no">
+	        <img :src="r.poster" :title="r.title" style="width:100%">
+	        <div class="caption">
+	          
+	        </div>
+	      </a>
+	    </div>
+	  </div>
+    </div>
     
   </main>
 </div>
@@ -79,7 +92,9 @@ a.link:hover,img.img_click:hover{
 	  data(){
 		  return {
 			  food_detail:{},
-			  fno:${fno}
+			  fno:${fno},
+			  food_type:'',
+			  recipe_list:[]
 		  }
 	  },
 	  mounted(){
@@ -90,7 +105,6 @@ a.link:hover,img.img_click:hover{
 		  }).then(response=>{
 			  console.log(response.data)
 			  this.food_detail=response.data
-			  
 			  if(window.kakao && window.kakao.maps)
 			  {
 				  this.initMap()
@@ -99,6 +113,16 @@ a.link:hover,img.img_click:hover{
 			  {
 				  this.addScript()
 			  }
+		  })
+		  
+		  axios.get('../food/food_detail_recipe.do',{
+			  params:{
+				  fno:this.fno
+			  }
+		  }).then(response=>{
+			  console.log(response.data)
+			  this.recipe_list=response.data
+			  
 		  })
 	  },
 	  methods:{

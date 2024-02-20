@@ -60,4 +60,8 @@ public class FoodDAO {
    {
 	   return mapper.foodNameInfoData(name);
    }
+   public List<RecipeVO> foodRecipeData(String title)
+   {
+	   return mapper.foodRecipeData(title);
+   }
 }
