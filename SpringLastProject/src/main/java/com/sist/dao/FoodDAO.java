@@ -52,4 +52,8 @@ public class FoodDAO {
    {
 	   return mapper.foodHome12();
    }
+   public List<String> foodAllData()
+   {
+	  return mapper.foodAllData();   
+   }
 }
