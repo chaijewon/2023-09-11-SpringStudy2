@@ -85,6 +85,38 @@ a.link:hover,img.img_click:hover{
       </td>
      </tr>
     </table>
+    <div style="height: 10px"></div>
+    <table class="table">
+     <tr>
+      <td>
+        <table class="table" v-for="rvo in reply_list">
+         <tr>
+          <td class="text-left">◑{{rvo.userName}}({{rvo.dbday}})</td>
+          <td class="text-right">
+           <span class="inline" v-if="rvo.userId===sessionId">
+            <input type=button class="btn-xs btn-danger" value="수정">&nbsp;
+            <input type=button class="btn-xs btn-info" value="삭제" @click="replyDelete(rvo.no)">
+           </span>
+          </td>
+         </tr>
+         <tr>
+           <td colspan="2" class="text-left" valign="top">
+            <pre style="white-space: pre-wrap;background-color: white;border:none">{{rvo.msg}}</pre>
+           </td>
+         </tr>
+        </table>
+      </td>
+     </tr>
+    </table>
+    <table class="table" v-if="sessionId">
+      <tr>
+       <td>
+         <textarea rows="4" cols="85" ref="msg" style="float: left" v-model="msg"></textarea>
+         <input type=button value="댓글쓰기" class="btn-danger"
+          style="float: left;width: 80px;height: 86px" @click="replyInsert()">
+       </td>
+      </tr>
+    </table>
   </main>
   <div id="dialog" title="레시피 관련 상품" v-show="isShow">
     <goods-data v-bind:goods="goods"></goods-data>
@@ -116,7 +148,10 @@ a.link:hover,img.img_click:hover{
 	    	 make:[],
 	    	 poster:[],
 	    	 goods:[],
-	    	 isShow:false
+	    	 isShow:false,
+	    	 reply_list:[],
+	    	 sessionId:'${sessionId}',
+	    	 msg:''
 	     }
      },
      // VM
@@ -128,9 +163,11 @@ a.link:hover,img.img_click:hover{
     		 params:{
     			 no:this.no
     		 }
+    	     // response.data={"detail_data":{},"reply_list":[]}
     	 }).then(response=>{
     		 console.log(response.data)
-    		 this.recipe_data=response.data
+    		 this.recipe_data=response.data.detail_data
+    		 this.reply_list=response.data.reply_list
     		 this.stuff=response.data.stuff.split(",")
     		 let makedata=response.data.foodmake.split("\n")
     		 // .........^http...
@@ -145,6 +182,35 @@ a.link:hover,img.img_click:hover{
     	 })
      },
      methods:{
+    	 replyDelete(no){
+    		axios.get('../recipe/reply_delete_vue.do',{
+    		  params:
+    			  {
+    			      no:no,
+    			      rno:this.no
+    			  }
+    			
+    		}).then(response=>{
+    			this.reply_list=response.data
+    		}) 
+    	 },
+    	 replyInsert(){
+    		if(this.msg==="")
+    		{
+    			this.$refs.msg.focus()
+    			return
+    		}
+    		
+    		axios.post('../recipe/reply_insert_vue.do',null,{
+    			params:{
+    				rno:this.no,
+    				msg:this.msg
+    			}
+    		}).then(response=>{
+    			this.reply_list=response.data
+    			this.msg=''
+    		})
+    	 },
     	 posterPrint(i){
     		 return this.poster[i]
     	 },

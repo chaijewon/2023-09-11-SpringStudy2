@@ -308,7 +308,7 @@ public class FoodRestController {
 				
 		   }
 	   }
-	   
+	   // 코딩 테스트 
 	   Set set=new HashSet();
 	   for(int i=0;i<rList.size();i++)
 	   {
