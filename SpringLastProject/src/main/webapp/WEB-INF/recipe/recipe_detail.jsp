@@ -94,7 +94,7 @@ a.link:hover,img.img_click:hover{
           <td class="text-left">◑{{rvo.userName}}({{rvo.dbday}})</td>
           <td class="text-right">
            <span class="inline" v-if="rvo.userId===sessionId">
-            <input type=button class="btn-xs btn-danger" value="수정">&nbsp;
+            <input type=button class="btn-xs btn-danger" value="수정" @click="updateForm(rvo.no)" :id="'up'+rvo.no">&nbsp;
             <input type=button class="btn-xs btn-info" value="삭제" @click="replyDelete(rvo.no)">
            </span>
           </td>
@@ -104,6 +104,13 @@ a.link:hover,img.img_click:hover{
             <pre style="white-space: pre-wrap;background-color: white;border:none">{{rvo.msg}}</pre>
            </td>
          </tr>
+         <tr style="display:none" :id="'u'+rvo.no" class="ups">
+	       <td colspan="2">
+	         <textarea rows="4" cols="85" :id="'u_msg'+rvo.no" style="float: left">{{rvo.msg}}</textarea>
+	         <input type=button value="댓글수정" class="btn-danger"
+	          style="float: left;width: 80px;height: 86px" @click="replyUpdate(rvo.no)">
+	       </td>
+	      </tr>
         </table>
       </td>
      </tr>
@@ -151,7 +158,8 @@ a.link:hover,img.img_click:hover{
 	    	 isShow:false,
 	    	 reply_list:[],
 	    	 sessionId:'${sessionId}',
-	    	 msg:''
+	    	 msg:'',
+	    	 u:0
 	     }
      },
      // VM
@@ -182,6 +190,38 @@ a.link:hover,img.img_click:hover{
     	 })
      },
      methods:{
+    	 replyUpdate(no){
+    		 let msg=$('#u_msg'+no).val()
+    		 //alert(msg)
+    		 axios.post('../recipe/reply_update_vue.do',null,{
+    			 params:{
+    				 no:no,
+    				 rno:this.no,
+    				 msg:msg
+    			 }
+    		 }).then(response=>{
+    			 this.reply_list=response.data
+    			 $('#u'+no).hide("slow")
+    			 $('#up'+no).val('수정')
+    		 })
+    	 },
+    	 updateForm(no){
+    		$('.ups').hide();
+    		$('#up'+no).val('수정')
+    		if(this.u==0)
+    		{
+    		    this.u=1;
+    		    $('#u'+no).show();
+    		    $('#up'+no).val('취소')
+    		    
+    		}
+    		else
+    		{
+    			this.u=0;
+    			$('#u'+no).hide();
+    		    $('#up'+no).val('수정')
+    		}
+    	 },
     	 replyDelete(no){
     		axios.get('../recipe/reply_delete_vue.do',{
     		  params:
