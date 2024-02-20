@@ -75,4 +75,10 @@ public class FoodServiceImpl implements FoodService{
 		return fDao.foodAllData();
 	}
 
+	@Override
+	public List<FoodVO> foodNameInfoData(String name) {
+		// TODO Auto-generated method stub
+		return fDao.foodNameInfoData(name);
+	}
+
 }

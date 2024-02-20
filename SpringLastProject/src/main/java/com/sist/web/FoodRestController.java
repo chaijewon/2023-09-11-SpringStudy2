@@ -309,11 +309,23 @@ public class FoodRestController {
 		   }
 	   }
 	   
+	   Set set=new HashSet();
 	   for(int i=0;i<rList.size();i++)
 	   {
-		   System.out.println(rList.get(i));
-		 
+		   set.add(rList.get(i)); // 중복제거 
 	   }
-	   return "";
+	   
+	   List<FoodVO> dList=new ArrayList<FoodVO>();
+	   Iterator iter=set.iterator();
+	   while(iter.hasNext())
+	   {
+		   String ss=iter.next().toString();
+		   List<FoodVO> vo=service.foodNameInfoData(ss);
+		   dList.add(vo.get(0));
+	   }
+	   
+	   ObjectMapper mapper=new ObjectMapper();
+	   String json=mapper.writeValueAsString(dList);
+	   return json;
    }
 }

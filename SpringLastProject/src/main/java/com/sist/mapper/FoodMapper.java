@@ -60,6 +60,11 @@ public interface FoodMapper {
 	  @Select("SELECT name FROM food_menu_house WHERE length(name)>1 ORDER BY fno ASC")
 	  public List<String> foodAllData();
 	  
+	  @Select("SELECT fno,name,poster "
+			 +"FROM food_menu_house "
+			 +"WHERE name=#{name}")
+	  public List<FoodVO> foodNameInfoData(String name);
+	  
 	  
 	  
 }
