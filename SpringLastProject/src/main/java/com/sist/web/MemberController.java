@@ -49,7 +49,7 @@ public class MemberController {
     	return "member/login";
     }
     
-    @GetMapping("member/logout.do")
+    /*@GetMapping("member/logout.do")
     public String member_logout(HttpSession session,HttpServletRequest request,HttpServletResponse response)
     {
     	session.invalidate();
@@ -68,6 +68,6 @@ public class MemberController {
     	    }
     	}
     	return "redirect:../main/main.do";
-    }
+    }*/
     
 }

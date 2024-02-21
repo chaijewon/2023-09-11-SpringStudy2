@@ -23,7 +23,7 @@ public class MemberRestController {
 	  return String.valueOf(count);
   }
   
-  @GetMapping(value="member/login_ok_vue.do",produces = "text/plain;charset=UTF-8")
+  /*@GetMapping(value="member/login_ok_vue.do",produces = "text/plain;charset=UTF-8")
   public String member_login_ok(String userId,String userPwd,boolean ck,
 		 HttpSession session,HttpServletResponse response)
   {
@@ -43,5 +43,5 @@ public class MemberRestController {
 		  }
 	  }
 	  return vo.getMsg();
-  }
+  }*/
 }
