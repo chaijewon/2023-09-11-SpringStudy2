@@ -24,7 +24,10 @@
        password-parameter="userPwd"
        default-target-url="/main/main.do"
        always-use-default-target="false"
+       authentication-failure-handler-ref="loginFailHandler"
+       authentication-success-handler-ref="loginSuccessHandler"
       />
+      
       <!-- 
          @GetMapping("member/login.do")
          public String member_login(String userId,String userPwd)
@@ -66,6 +69,13 @@
         <password-encoder ref="bcryptEncoder"/>
       </authentication-provider>
     </authentication-manager>
+    <!-- 로그인 성공/로그인 실패 -->
+    <beans:bean id="loginFailHandler" class="com.sist.security.LoginFailHandler">
+      <beans:property name="defaultFailureUrl" value="/member/login.do?login_error"></beans:property>
+    </beans:bean>
+    <beans:bean id="loginSuccessHandler" class="com.sist.security.LoginSuccessHandler">
+      <beans:property name="defaultUrl" value="/main/main.do"></beans:property>
+    </beans:bean>
     <!-- 암호화 등록 -->
     <beans:bean id="bcryptEncoder"
       class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"
