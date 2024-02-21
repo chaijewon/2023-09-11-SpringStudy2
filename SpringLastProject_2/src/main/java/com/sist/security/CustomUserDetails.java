@@ -11,15 +11,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import lombok.Data;
 @Data
 public class CustomUserDetails implements UserDetails{
-	private String userId;
-	private String userName;
+	private String id;
+	private String name;
     private String sex;
 	private String email;
 	private String phone;
 	private String address;
 	private boolean enabled;
 	private String authority;
-	private String userPwd;
+	private String password;
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
@@ -31,13 +31,13 @@ public class CustomUserDetails implements UserDetails{
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub
-		return userPwd;
+		return password;
 	}
 
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return userId;
+		return id;
 	}
 
 	@Override
