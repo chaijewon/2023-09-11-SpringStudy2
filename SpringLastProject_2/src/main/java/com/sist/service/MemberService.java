@@ -8,4 +8,6 @@ public interface MemberService {
 	public void memberAuthorityInsert(String userId);
 	public MemberVO memberLogin(String userId,String userPwd);
 	public MemberVO memberInfo(String userId);
+	public MemberVO memberSessionData(String userId);
+	public void lastLoginUpdate(String userId);
 }
