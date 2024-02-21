@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +17,9 @@ a.link:hover,img.img_click:hover{
 </style>
 </head>
 <body>
+<sec:authorize access="isAuthenticated()">
+  <sec:authentication property="principal" var="principal"/>
+</sec:authorize>
 <div class="wrapper row3" id="recipeApp">
   <main class="container clear"> 
     <h2 class="sectiontitle">레시피 상세보기</h2>
@@ -157,7 +161,7 @@ a.link:hover,img.img_click:hover{
 	    	 goods:[],
 	    	 isShow:false,
 	    	 reply_list:[],
-	    	 sessionId:'${sessionId}',
+	    	 sessionId:'${principal.username}',
 	    	 msg:'',
 	    	 u:0
 	     }

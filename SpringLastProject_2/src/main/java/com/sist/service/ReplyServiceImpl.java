@@ -35,6 +35,12 @@ public class ReplyServiceImpl implements ReplyService{
 		// TODO Auto-generated method stub
 		rDao.replyDelete(no);
 	}
+
+	@Override
+	public MemberVO memberInfoData(String userId) {
+		// TODO Auto-generated method stub
+		return rDao.memberInfoData(userId);
+	}
 	  
   
 }
