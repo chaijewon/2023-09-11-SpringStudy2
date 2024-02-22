@@ -51,7 +51,7 @@
           <li><a href="../food/food_find.do">맛집 찾기</a></li>
           <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
            <li><a href="../food/food_recommand.do">맛집 추천</a></li>
-           <li><a href="../food/food_reserve.do">맛집 예약</a></li>
+           <li><a href="../reserve/reserve_main.do">맛집 예약</a></li>
            <li><a href="../food/food_recipe.do">맛집 레시피</a></li>
           </sec:authorize>
           
