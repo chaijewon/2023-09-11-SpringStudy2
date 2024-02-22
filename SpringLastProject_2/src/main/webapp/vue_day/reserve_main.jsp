@@ -7,6 +7,11 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="space.css">
 <script type="text/javascript" src="calendar.js"></script>
+<script type="text/javascript">
+window.onload=function(){
+	alert(new Date('2024-02-01').getDay())
+}
+</script>
 </head>
 <body>
       <div id="bookinfo" class="modal modal-calendar">

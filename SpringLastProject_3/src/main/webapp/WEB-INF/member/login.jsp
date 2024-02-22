@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 $(function(){
 	$('#logBtn').click(function(){
 		let id=$('#id').val()
@@ -26,7 +26,9 @@ $(function(){
 		$('#frm').submit()
 	})
 })
-</script>
+</script>-->
+<script src="https://unpkg.com/vue@3"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
  <div class="wrapper row3" id="loginApp">
@@ -38,13 +40,13 @@ $(function(){
           <tr>
            <td width=20% class="text-right">ID</td>
            <td width=80%>
-            <input type=text name="id" class="input-sm" id="id">
+            <input type=text name="id" class="input-sm" ref="id" v-model="id">
            </td>
           </tr>
           <tr>
            <td width=20% class="text-right">Password</td>
            <td width=80%>
-            <input type=password name="pwd" class="input-sm" id="pwd">
+            <input type=password name="pwd" class="input-sm" red="pwd" v-model="pwd">
            </td>
           </tr>
           <tr>
@@ -58,7 +60,7 @@ $(function(){
           </tr>
           <tr>
             <td colspan="2" class="text-center inline">
-             <input type=button value="로그인" class="btn-danger btn-sm" id="logBtn">
+             <input type=button value="로그인" class="btn-danger btn-sm" @click="login()">
              <input type=button value="취소" class="btn-danger btn-sm" onclick="javascript:history.back()">
             </td>
           </tr>
@@ -67,60 +69,31 @@ $(function(){
       </div>
     </main>
  </div>
- <!-- <script>
-  let loginApp=Vue.createApp({
-	  data(){
-		  return {
-			  id:'${userId}',
-			  pwd:'',
-			  ck:true  
-		  }
-	  },
-	  methods:{
-		  login(){
-			  if(this.id==='')
-			  {
-				  alert("ID를 입력하세요!!")
-				  this.$refs.id.focus()
-				  return
-			  }
-			  if(this.pwd==='')
-			  {
-				  alert("비밀번호를 입력하세요!!")
-				  this.$refs.pwd.focus()
-				  return
-			  }
-			  axios.get('../member/login_ok_vue.do',{
-				  params:{
-					  userId:this.id,
-					  userPwd:this.pwd,
-					  ck:this.ck
-				  }
-			  }).then(response=>{
-				  // NOID , NOPWD , OK 
-				  if(response.data==='NOID')
-				  {
-					  alert("ID가 존재하지 않습니다")
-					  this.id=''
-					  this.pwd=''
-					  this.ck=false
-					  this.$refs.id.focus()
-				  }
-				  else if(response.data==='NOPWD')
-				  {
-					  alert("비밀번호가 틀립니다!!")
-					  this.pwd=''
-					  this.$refs.pwd.focus()
-				  }
-				  else
-			      {
-					  location.href='../main/main.do'
-			      }
-			  })
-		  }
-	  }
-  }).mount("#loginApp")
- </script>-->
+ <script>
+ let logApp=Vue.createApp({
+	 data(){
+		 return {
+			 id:'',
+			 pwd:''
+		 }
+	 },
+	 methods:{
+		login(){
+			if(this.id==='')
+			{
+				this.$refs.id.focus()
+				return
+			}
+			if(this.pwd==='')
+			{
+				this.$refs.pwd.focus()
+				return
+			}
+			$('#frm').submit()
+		} 
+	 }
+ }).mount("#loginApp")
+ </script>
 </body>
 </html>
 

@@ -20,7 +20,7 @@
     <c:if test="${principal.username!=null }">
     <div class="fl_right">
       <ul class="inline">
-        <li><i class="fa fa-phone"></i> ${sessionScope.member.userName }(
+        <li><i class="fa fa-phone"></i> ${sessionScope.userName}(
          <sec:authorize access="hasRole('ROLE_ADMIN')">관리자</sec:authorize>
          <sec:authorize access="hasRole('ROLE_USER')">일반사용자</sec:authorize>
         )</li>

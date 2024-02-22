@@ -41,14 +41,12 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 		mService.lastLoginUpdate(authentication.getName());
 		
 		MemberVO vo=mService.memberSessionData(authentication.getName());
-		SessionInfo info=new SessionInfo();
-		info.setUserId(vo.getUserId());
-		info.setUserName(vo.getUserName());
-		info.setEmail(vo.getEmail());
-		info.setPhone(vo.getPhone());
-		info.setAddress(vo.getAddr1()+" "+vo.getAddr2());
-		info.setSex(vo.getSex());
-		session.setAttribute("member", info);
+		session.setAttribute("userId", vo.getUserId());
+		session.setAttribute("userName", vo.getUserName());
+		session.setAttribute("sex", vo.getSex());
+		session.setAttribute("address", vo.getAddr1()+" "+vo.getAddr2());
+		session.setAttribute("phone", vo.getPhone());
+		session.setAttribute("email", vo.getEmail());
 		resultRedirectStrategy(request, response, authentication);
 		
 		// response.sendRedirect("../main/main.do")

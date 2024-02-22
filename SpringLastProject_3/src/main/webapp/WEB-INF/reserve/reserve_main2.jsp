@@ -27,89 +27,40 @@
       padding:10px;
       color:#ffffff;
     }
-  td.link:hover{
-    cursor: pointer;
-  }
 </style>
 </head>
 <body>
 <div class="wrapper row3" id="reserveApp">
   <main class="container clear"> 
-   <h2 class="sectiontitle">맛집 예약</h2>
-   <table class="table">
-     <tr>
-       <td class="text-center" rowspan="3" width=40%>
-         <table class="table">
-           <caption><h3 class="text-center">맛집 정보</h3></caption>
-           <tr>
-             <td></td>
-           </tr>
-         </table>
-       </td>
-       <td class="text-center" width="60%">
-         <table class="table">
-           <caption><h3 class="text-center">예약일 정보</h3></caption>
-           <tr>
-             <td>
-                <div class="calendar">
-				      <h2>
-				        <a href="#" v-on:click="onClickPrev(currentMonth)">◀</a>
-				        {{currentYear}}년 {{currentMonth}}월
-				        <a href="#" v-on:click="onClickNext(currentMonth)">▶</a>
-				      </h2>
-				      <table class="table table-hover">
-				          <thead>
-				            <tr>
-				              <td v-for="(weekName, index) in weekNames" v-bind:key="index">
-				                {{weekName}}
-				              </td>
-				            </tr>
-				          </thead>
-				          <tbody>
-				            <tr v-for="(row, index) in currentCalendarMatrix" :key="index">
-				              <td v-for="(day, index2) in row" :key="index2" style="padding:20px;" :class="day>=realDay?'link':''">
-				                <span v-if="day>=realDay" @click="change(day)" style="color:black">
-					                <span v-if="day===currentDay" class="rounded">
-					                  {{day}}
-					                </span>
-					                <span v-else>
-					                  {{day}}
-					                </span>
-				                </span>
-				                <span v-else style="color:gray">
-				                   {{day}}
-				                </span>
-				              </td>
-				            </tr>
-				          </tbody>
-				      </table>    
-				  </div>
-             </td>
-           </tr>
-         </table>
-       </td>
-     </tr>
-     <tr>
-      <td class="text-center" width=60%>
-        <table class="table">
-          <caption><h3 class="text-center">시간 정보</h3></caption>
-          <tr>
-            <td></td>
-          </tr>
-        </table>
-      </td>
-     </tr>
-     <tr>
-      <td class="text-center" width=60%>
-        <table class="table">
-          <caption><h3 class="text-center">인원 정보</h3></caption>
-          <tr>
-            <td></td>
-          </tr>
-        </table>
-      </td>
-     </tr>
-   </table>
+  <h2 class="sectiontitle">맛집 예약</h2>
+     <div class="calendar">
+      <h2>
+        <a href="#" v-on:click="onClickPrev(currentMonth)">◀</a>
+        {{currentYear}}년 {{currentMonth}}월
+        <a href="#" v-on:click="onClickNext(currentMonth)">▶</a>
+      </h2>
+      <table class="table table-hover">
+          <thead>
+            <tr>
+              <td v-for="(weekName, index) in weekNames" v-bind:key="index">
+                {{weekName}}
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(row, index) in currentCalendarMatrix" :key="index">
+              <td v-for="(day, index2) in row" :key="index2" style="padding:20px;" @click="change(day)">
+                <span v-if="day===currentDay" class="rounded">
+                  {{day}}
+                </span>
+                <span v-else>
+                  {{day}}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+      </table>    
+  </div>
   </main>
 </div>
 <script>
@@ -126,7 +77,6 @@ let rApp=Vue.createApp({
 		      currentCalendarMatrix: [],
 		      endOfDay: null,
 		      memoDatas: [],
-		      realDay:new Date().getDate()
 		}
 	},
 	mounted(){
@@ -246,10 +196,3 @@ let rApp=Vue.createApp({
 </script>
 </body>
 </html>
-
-
-
-
-
-
-

@@ -62,4 +62,12 @@ public class MemberDAO {
    {
 	   mapper.lastLoginUpdate(userId);
    }
+   public String memberGetUserName(String token)
+   {
+	   return mapper.memberGetUserName(token);
+   }
+   public MemberVO memberSessionInfoData(String userId)
+   {
+	   return mapper.memberSessionData(userId);
+   }
 }

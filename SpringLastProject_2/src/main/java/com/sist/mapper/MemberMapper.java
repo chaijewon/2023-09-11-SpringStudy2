@@ -64,4 +64,12 @@ public interface MemberMapper {
 		  +"WHERE userId=#{userId}")
    public void lastLoginUpdate(String userId);
    
+   @Select("SELECT username FROM persistent_logins "
+		  +"WHERE token=#{token}")
+   public String memberGetUserName(String token);
+   
+   @Select("SELECT userId,userName,sex,email,addr1,addr2,phone "
+			  +"FROM projectMember "
+			  +"WHERE userId=#{userId}")
+    public MemberVO memberSessionInfoData(String userId);
 }
