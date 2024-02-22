@@ -88,7 +88,6 @@
       </c:if>
       <c:if test="${principal.username!=null }">
        <li class="nav navbar-nav navbar-right"><a href="../member/logout.do"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
-       
       </c:if>
       <!-- </ul> 
         
