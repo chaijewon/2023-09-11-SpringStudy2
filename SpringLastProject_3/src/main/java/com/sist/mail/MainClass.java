@@ -26,7 +26,8 @@ public class MainClass {
         	message.setFrom(new InternetAddress(user));
         	
         	message.setContent("안녕하세요","text/html;charset=UTF-8");
-        	message.addRecipient(Message.RecipientType.TO, new InternetAddress("vcandjava@nate.com"));
+        	message.addRecipient(Message.RecipientType.TO, 
+        			new InternetAddress("vcandjava@nate.com"));
         	message.setSubject("회원을 축하합니다");
         	Transport.send(message);
         	System.out.println("메일 전송 완료!!");
