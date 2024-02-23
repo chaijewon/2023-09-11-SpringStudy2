@@ -10,11 +10,15 @@ import javax.servlet.http.HttpSession;
 
 import com.sist.vo.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sist.manager.MailManager;
 import com.sist.service.*;
 @RestController
 public class ReserveRestController {
    @Autowired
    private ReserveService rService;
+   
+   @Autowired
+   private MailManager mm;//MailManager mm=new MailManager()
    
    @GetMapping(value="reserve/food_list_vue.do",produces = "text/plain;charset=UTF-8")
    public String food_list(String type) throws Exception
@@ -82,9 +86,10 @@ public class ReserveRestController {
 	   String result="";
 	   try
 	   {
-		
 		   result="yes";
 		   rService.reserveOk(rno);
+		   ReserveVO vo=rService.reserveInfoData(rno);
+		   mm.mailReserveSender(vo);
 	   }catch(Exception ex)
 	   {
 		   result=ex.getMessage();

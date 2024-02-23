@@ -8,4 +8,5 @@ public interface ReserveService {
 	public void reserveCancel(int rno);
 	public List<ReserveVO> reserveAdminpageData();
 	public void reserveOk(int rno);
+	public ReserveVO reserveInfoData(int rno);
 }

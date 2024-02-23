@@ -42,5 +42,10 @@ public class ReserveServiceImpl implements ReserveService{
 		// TODO Auto-generated method stub
 		rDao.reserveOk(rno);
 	}
+	@Override
+	public ReserveVO reserveInfoData(int fno) {
+		// TODO Auto-generated method stub
+		return rDao.reserveInfoData(fno);
+	}
    
 }
