@@ -23,6 +23,36 @@ public class BoardRestController {
     				}
     			})
     */
+   // Service => DAO통합 , 실제 데이터 전송 모아서 처리 => Controller
+   /*
+    *   사용자 ==> page
+    *    list_vue.do?page=1 => DispatcherServlet ==> freeboard_list(1)
+    *      String page=request.getParameter("page")
+    *      
+    *         @Service
+    *      => public String freeboard_list(int page) throws Exception
+    *      
+    *      예)
+    *           @Controller
+    *           public class A
+    *           {
+    *              @Autowired
+    *              private S s;
+    *              public String freeboard_list(int page)
+    *              {
+    *                 s.freeboard_list(page)
+    *              }
+    *           }
+    *           
+    *           @Service
+    *           public class S
+    *           {
+    *              public String freeboard_list(int page)
+    *              {
+    *                  처리 
+    *              }
+    *           }
+    */
    @GetMapping(value="list_vue.do",produces = "text/plain;charset=UTF-8")
    public String freeboard_list(int page) throws Exception
    {

@@ -27,7 +27,7 @@
       padding:10px;
       color:#ffffff;
     }
-  td.link:hover{
+  td.link:hover,tr.tr_link:hover{
     cursor: pointer;
   }
 </style>
@@ -38,13 +38,26 @@
    <h2 class="sectiontitle">맛집 예약</h2>
    <table class="table">
      <tr>
-       <td class="text-center" rowspan="3" width=40%>
+       <td class="text-center" rowspan="4" width=40%>
          <table class="table">
            <caption><h3 class="text-center">맛집 정보</h3></caption>
            <tr>
-             <td></td>
+             <td class="text-center inline">
+               <input type="button" class="btn-xs btn-success" value="한식" @click="foodSelect('한식')">&nbsp;
+               <input type="button" class="btn-xs btn-info" value="양식" @click="foodSelect('양식')">&nbsp;
+               <input type="button" class="btn-xs btn-warning" value="일식" @click="foodSelect('일식')">&nbsp;
+               <input type="button" class="btn-xs btn-danger" value="중식" @click="foodSelect('중식')">
+             </td>
            </tr>
          </table>
+         <div style="overflow-y:auto;height:700px">
+          <table class="table">
+            <tr v-for="vo in food_list" class="tr_link" @click="foodNumber(vo.fno)">
+              <td><img :src="'http://www.menupan.com'+vo.poster" style="width: 30px;height: 30px"></td>
+              <td class="text-left">{{vo.name}}</td>
+            </tr>
+          </table>
+         </div>
        </td>
        <td class="text-center" width="60%">
          <table class="table">
@@ -93,8 +106,10 @@
       <td class="text-center" width=60%>
         <table class="table">
           <caption><h3 class="text-center">시간 정보</h3></caption>
-          <tr>
-            <td></td>
+          <tr v-show="tShow">
+            <td class="text-center">
+              <span class="btn btn-xs btn-success" v-for="time in time_list" style="margin-left: 2px" @click="timeSelect(time)">{{time}}</span>
+            </td>
           </tr>
         </table>
       </td>
@@ -103,11 +118,18 @@
       <td class="text-center" width=60%>
         <table class="table">
           <caption><h3 class="text-center">인원 정보</h3></caption>
-          <tr>
-            <td></td>
+          <tr v-show="iShow">
+            <td class="text-center">
+              <span class="btn btn-warning btn-xs" v-for="inwon in inwon_list" style="margin-left: 2px" @click="inwonSelect(inwon)">{{inwon}}</span>
+            </td>
           </tr>
         </table>
       </td>
+     </tr>
+     <tr v-show="rShow">
+       <td class="text-right" width=60%>
+        <input type=button class="btn-lg btn-primary" value="예약하기" @click="reserveOk()">
+       </td>
      </tr>
    </table>
   </main>
@@ -126,13 +148,55 @@ let rApp=Vue.createApp({
 		      currentCalendarMatrix: [],
 		      endOfDay: null,
 		      memoDatas: [],
-		      realDay:new Date().getDate()
+		      realDay:new Date().getDate(),
+		      type:'한식',
+		      food_list:[],
+		      fno:0,
+		      time_list:['12:00','13:00','14:00','17:00','18:00','19:00','20:00','21:00'],
+		      tShow:false,
+		      time:'',
+		      inwon_list:['2명','3명','4명','5명','6명','7명','8명','9명','10명','단체'],
+		      iShow:false,
+		      inwon:'',
+		      rShow:false
 		}
 	},
 	mounted(){
 		this.init()
+		this.dataSend()
 	},
 	methods:{
+		   reserveOk(){
+			 axios.post('../reserve/reserve_ok.do',null,{
+				 params:{
+					 fno:this.fno,
+					 rDate:this.currentYear+"년도 "+this.currentMonth+"월 "+this.currentDay,
+					 rTime:this.time,
+					 rInwon:this.inwon
+				 }
+			 }).then(response=>{
+				 if(response.data==='yes')
+			     {
+					 location.href="../mypage/mypage.do" 
+			     }
+				 else
+			     {
+					 alert("맛집 예약에 실패하셨습니다")
+			     }
+			 })  
+		   },
+		   inwonSelect(inwon){
+			 this.inwon=inwon
+			 this.rShow=true
+		   },
+		   timeSelect(time){
+			 this.time=time;
+			 this.iShow=true
+		   },
+		
+		   foodNumber(fno){
+			 this.fno=fno;  
+		   },
 		  init(){
 	        this.currentMonthStartWeekIndex = this.getStartWeek(this.currentYear, this.currentMonth);
 	        this.endOfDay = this.getEndOfDay(this.currentYear, this.currentMonth);
@@ -239,8 +303,27 @@ let rApp=Vue.createApp({
 	      },
 	      change(day){
 	    	 this.currentDay=day;
+	    	 this.tShow=true
 	    	 //this.isToday(this.currentYear,.this.currentMonth,this.currentDay)
+	      },
+	      // 맛집
+	      dataSend(){
+	    	axios.get('../reserve/food_list_vue.do',{
+	    		params:{
+	    			type:this.type
+	    		}
+	    	}).then(response=>{
+	    		console.log(response.data)
+	    		this.food_list=response.data
+	    	})  
+	      },
+	      foodSelect(type){
+	    	  this.type=type;
+	    	  this.dataSend()
 	      }
+	      // 시간 
+	      // 인원
+	      // 데이터 전송(예약처리) => 화면 변경 (마이페이지로 이동)
 	  }
 }).mount("#reserveApp")
 </script>

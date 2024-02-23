@@ -70,4 +70,6 @@ public class MemberDAO {
    {
 	   return mapper.memberSessionData(userId);
    }
+   
+   
 }
