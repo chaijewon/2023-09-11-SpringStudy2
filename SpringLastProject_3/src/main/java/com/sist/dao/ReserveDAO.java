@@ -23,4 +23,16 @@ public class ReserveDAO {
   {
 	  return mapper.reserveMypageData(userId);
   }
+  public void reserveCancel(int rno)
+  {
+	  mapper.reserveCancel(rno);
+  }
+  public List<ReserveVO> reserveAdminpageData()
+  {
+	  return mapper.reserveAdminpageData();
+  }
+  public void reserveOk(int rno)
+  {
+	  mapper.reserveOk(rno);
+  }
 }

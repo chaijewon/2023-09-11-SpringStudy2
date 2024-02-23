@@ -25,5 +25,10 @@ public class ReserveController {
    {
 	   return "mypage/mypage_main";
    }
+   @GetMapping("adminpage/admin.do")
+   public String adminpage_main()
+   {
+	   return "adminpage/admin_main";
+   }
    
 }

@@ -1,10 +1,12 @@
 package com.sist.mapper;
 import java.util.*;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.sist.vo.*;
 /*
@@ -36,10 +38,30 @@ public interface ReserveMapper {
    })
    @Select("SELECT rno,r.fno,name,poster,rDate,rTime,"
 		  +"rInwon,reserve_ok,TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS') as dbday "
-		  +"FROM reserve r,food_menu_hosue f "
+		  +"FROM reserve r,food_menu_house f "
 		  +"WHERE r.fno=f.fno "
 		  +"AND userId=#{userId} "
 		  +"ORDER BY rno DESC")
    public List<ReserveVO> reserveMypageData(String userId);
+   
+   @Delete("DELETE FROM reserve "
+		  +"WHERE rno=#{rno}")
+   public void reserveCancel(int rno);
+   
+   @Results({
+	   @Result(column = "name",property = "fvo.name"),
+	   @Result(column = "poster",property = "fvo.poster")
+   })
+   @Select("SELECT rno,r.fno,name,poster,rDate,rTime,"
+		  +"rInwon,reserve_ok,TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS') as dbday "
+		  +"FROM reserve r,food_menu_house f "
+		  +"WHERE r.fno=f.fno "
+		  +"ORDER BY rno DESC")
+   public List<ReserveVO> reserveAdminpageData();
+   
+   @Update("UPDATE reserve SET "
+		  +"reserve_ok=1 "
+		  +"WHERE rno=#{rno}")
+   public void reserveOk(int rno);
    
 }
