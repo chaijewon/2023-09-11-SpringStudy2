@@ -34,5 +34,15 @@ public class BoardController {
    {
 	   return  bService.boardDetailData(no, model);
    }
+   @GetMapping("board/update.do")
+   public String boardUpdateData(int no,Model model)
+   {
+	   return bService.boardUpdateData(no, model);
+   }
+   @PostMapping("board/update_ok.do")
+   public String boardUpdateOk(BoardVO vo,Model model)
+   {
+	   return "";
+   }
    
 }

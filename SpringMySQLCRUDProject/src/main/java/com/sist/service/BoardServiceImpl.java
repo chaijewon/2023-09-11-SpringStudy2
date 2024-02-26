@@ -43,4 +43,19 @@ public class BoardServiceImpl implements BoardService{
 		return "board/detail";
 	}
 
+	@Override
+	public String boardUpdateData(int no, Model model) {
+		// TODO Auto-generated method stub
+		BoardVO vo=bDao.boardUpdateData(no);
+		model.addAttribute("vo", vo);
+		return "board/update";
+	}
+
+	@Override
+	public String boardUpdateOk(BoardVO vo, Model model) {
+		// TODO Auto-generated method stub
+		
+		return null;
+	}
+
 }

@@ -45,6 +45,7 @@ function onClose(event)
 function onMessage(event)
 {
 	 let data=event.data // 전송된 데이터 
+	 
 	 if(data.substring(0,4)==="msg:") // oto , makeroom  ==> 100 200 300...
 	 // msg:[이름] 메세지
 	 {
@@ -80,7 +81,7 @@ function send()
 		return 
 	}
 	
-	websocket.send("msg:"+msg)
+	websocket.send(msg)
 	$('#sendMsg').val("")
 	$('#sendMsg').focus()
 }

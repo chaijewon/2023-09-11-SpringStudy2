@@ -40,4 +40,19 @@ public interface BoardMapper {
 		  </select>
     */
    public BoardVO boardDetailData(int no);
+   /*
+    *   <select id="boardGetPassword" resultType="string" parameterType="int">
+		    SELECT pwd FROM board 
+		    WHERE no=#{no}
+		  </select>
+   */
+   public String boardGetPassword(int no);
+   /*
+		  <update id="boardUpdate" parameterType="BoardVO">
+		    UPDATE board SET
+		    name=#{name},subject=#{subject},content=#{content}
+		    WHERE no=#{no}
+		  </update>
+    */
+   public void boardUpdate(BoardVO vo);
 }
