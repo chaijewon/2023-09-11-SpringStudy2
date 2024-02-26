@@ -66,12 +66,12 @@ function appendMessage(msg)
 }
 function send()
 {
-	let name=$('#name').val()
+	/*let name=$('#name').val()
 	if(name.trim()==="")
 	{
 		$('#name').focus()
 		return
-	}
+	}*/
 	
 	let msg=$('#sendMsg').val()
 	if(msg.trim()==="")
@@ -80,7 +80,7 @@ function send()
 		return 
 	}
 	
-	websocket.send("msg:["+name+"]"+msg)
+	websocket.send("msg:"+msg)
 	$('#sendMsg').val("")
 	$('#sendMsg').focus()
 }
@@ -109,8 +109,8 @@ $(function(){
    <div class="row">
      <table class="table">
       <tr>
-        <td>
-         이름:<input type=text id="name" size=15 class="input-sm">
+        <td class="inline">
+         <!-- 이름:<input type=text id="name" size=15 class="input-sm"> -->
          <input type=button value="입장" class="btn-danger btn-sm" id="inputBtn">
          <input type=button value="퇴장" class="btn-success btn-sm" id="outputBtn">
         </td>
@@ -123,7 +123,7 @@ $(function(){
        </td>
       </tr>
       <tr>
-        <td>
+        <td class="inline">
           <input type=text id="sendMsg" size=80 class="input-sm">
           <input type=button id="sendBtn" value="전송" class="btn-sm btn-primary">
         </td>

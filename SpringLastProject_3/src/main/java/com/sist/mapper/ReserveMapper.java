@@ -52,7 +52,7 @@ public interface ReserveMapper {
 	   @Result(column = "name",property = "fvo.name"),
 	   @Result(column = "poster",property = "fvo.poster")
    })
-   @Select("SELECT rno,r.fno,name,poster,rDate,rTime,"
+   @Select("SELECT rno,r.fno,name,poster,userId,rDate,rTime,"
 		  +"rInwon,reserve_ok,TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS') as dbday "
 		  +"FROM reserve r,food_menu_house f "
 		  +"WHERE r.fno=f.fno "

@@ -35,6 +35,7 @@ public class ReserveServiceImpl implements ReserveService{
 	@Override
 	public List<ReserveVO> reserveAdminpageData() {
 		// TODO Auto-generated method stub
+		//BI
 		return rDao.reserveAdminpageData();
 	}
 	@Override
