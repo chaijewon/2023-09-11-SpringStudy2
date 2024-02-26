@@ -55,7 +55,14 @@ public class ChatManager {
 	   {
 		   Session ss=it.next();
 		   ChatVO vo=users.get(session);
-		   ss.getBasicRemote().sendText("msg:["+vo.getUserName()+"]"+message);
+		   if(session.getId()==ss.getId())
+		   {
+		       ss.getBasicRemote().sendText("my:["+vo.getUserName()+"]"+message);
+		   }
+		   else
+		   {
+			   ss.getBasicRemote().sendText("you:["+vo.getUserName()+"]"+message);
+		   }
 		   System.out.println(vo.getUserName()+":전송 완료!!");
 	   }
 	   

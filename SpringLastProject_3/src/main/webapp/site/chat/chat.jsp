@@ -46,10 +46,20 @@ function onMessage(event)
 {
 	 let data=event.data // 전송된 데이터 
 	 
-	 if(data.substring(0,4)==="msg:") // oto , makeroom  ==> 100 200 300...
+	 if(data.substring(0,3)==="my:") // oto , makeroom  ==> 100 200 300...
 	 // msg:[이름] 메세지
 	 {
-		 appendMessage(data.substring(4))
+		 appendMyMessage(data.substring(3))
+	 }
+	 if(data.substring(0,4)==="you:") // oto , makeroom  ==> 100 200 300...
+		 // msg:[이름] 메세지
+     {
+		 appendYouMessage(data.substring(4))
+	 }
+	 if(data.substring(0,4)==="msg:") // oto , makeroom  ==> 100 200 300...
+		 // msg:[이름] 메세지
+     {
+		 appendMsgMessage(data.substring(4))
 	 }
 }
 function disConnection()
@@ -58,7 +68,21 @@ function disConnection()
 }
 // 퇴장처리 => Callback
 // 메세지 전송 => Callback
-function appendMessage(msg)
+function appendMsgMessage(msg)
+{
+	 $('#recvMsg').append("<font color=red>"+msg+"</font><br>")
+	 let ch=$('#chatArea').height()
+	 let m=$('#recvMsg').height()-ch
+	 $('#chatArea').scrollTop(m)
+}
+function appendMyMessage(msg)
+{
+	 $('#recvMsg').append("<font color=blue>"+msg+"</font><br>")
+	 let ch=$('#chatArea').height()
+	 let m=$('#recvMsg').height()-ch
+	 $('#chatArea').scrollTop(m)
+}
+function appendYouMessage(msg)
 {
 	 $('#recvMsg').append(msg+"<br>")
 	 let ch=$('#chatArea').height()
