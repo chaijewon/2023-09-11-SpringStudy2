@@ -20,14 +20,14 @@ import lombok.Data;
 
 import java.util.*;
 
-@ServerEndpoint(value="/chat/chat-ws",configurator = WebSokcetSessionConfigurator.class)
+@ServerEndpoint(value="/site/chat/chat-ws",configurator = WebSokcetSessionConfigurator.class)
 public class ChatManager {
    private static Map<Session,ChatVO> users=Collections.synchronizedMap(new HashMap<Session,ChatVO>());
    @OnOpen
    public void onOpen(Session session,EndpointConfig config) throws Exception
    {
 	   ChatVO vo=new ChatVO();
-	   HttpSession hs=(HttpSession)config.getUserProperties().get("PRIVATE_HTTP_SESSION");
+	   HttpSession hs=(HttpSession)config.getUserProperties().get(HttpSession.class.getName());
 	   vo.setUserId((String)hs.getAttribute("userId"));
 	   vo.setUserName((String)hs.getAttribute("userName"));
 	   vo.setSession(session);
