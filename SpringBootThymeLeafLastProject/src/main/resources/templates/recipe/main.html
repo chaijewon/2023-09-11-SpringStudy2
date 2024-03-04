@@ -14,7 +14,7 @@
           <header class="heading">총 <span style="font-size: 35px;color:green" th:text="${count}"></span>개의 맛있는 레시피가 있습니다.</header>
           <ul class="nospace clear">
             <li th:each="vo,i:${list}" th:class="${i.index%4==0?'one_quarter first':'one_quarter'}">
-	            <a th:href="@{/recipe/detail(no=${vo.no})}">
+	            <a th:href="@{/recipe/before_detail(no=${vo.no})}">
 	             <img th:src="${vo.poster}" th:title="${vo.title}">
 	            </a>
             </li>

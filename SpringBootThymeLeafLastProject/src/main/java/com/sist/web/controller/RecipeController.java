@@ -5,9 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sist.web.dao.*;
 import com.sist.web.entity.*;
+
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 // Model => 요청 처리 
 @Controller
 public class RecipeController {
@@ -48,6 +52,22 @@ public class RecipeController {
 	   
 	   model.addAttribute("main_html", "recipe/main");
 	   return "main";
+   }
+   @GetMapping("/recipe/before_detail")
+   public String recipe_before(int no,RedirectAttributes ra,HttpServletResponse response)
+   {
+	   // 쿠키에 저장 
+	   Cookie cookie=new Cookie("recipe"+no, String.valueOf(no));
+	   // cookie는 저장시에 문자열만 저장이 가능 
+	   cookie.setPath("/");
+	   cookie.setMaxAge(60*60*24);
+	   response.addCookie(cookie); // 클라이언트 브라우저로 전송 
+	   ra.addAttribute("no", no);
+	   return "redirect:../recipe/detail";
+	   /*
+	    *   RedirectAttributes sendRedirect을 이용해서 데이터 전송 
+	    *   Model: forward
+	    */
    }
    @GetMapping("/recipe/detail")
    public String recipe_detail(int no,Model model)
