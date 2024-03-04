@@ -23,29 +23,9 @@
     <h2 class="sectiontitle">인기 레시피</h2>
     <div class="flexslider carousel basiccarousel btmspace-80">
       <ul class="slides">
-        <li>
-          <figure><img class="radius-10 btmspace-10" src="images/demo/320x185.png" alt="">
-            <figcaption><a href="#">Lorem Ipsum Dolor Sit Amet</a></figcaption>
-          </figure>
-        </li>
-        <li>
-          <figure><img class="radius-10 btmspace-10" src="images/demo/320x185.png" alt="">
-            <figcaption><a href="#">Lorem Ipsum Dolor Sit Amet</a></figcaption>
-          </figure>
-        </li>
-        <li>
-          <figure><img class="radius-10 btmspace-10" src="images/demo/320x185.png" alt="">
-            <figcaption><a href="#">Lorem Ipsum Dolor Sit Amet</a></figcaption>
-          </figure>
-        </li>
-        <li>
-          <figure><img class="radius-10 btmspace-10" src="images/demo/320x185.png" alt="">
-            <figcaption><a href="#">Lorem Ipsum Dolor Sit Amet</a></figcaption>
-          </figure>
-        </li>
-        <li>
-          <figure><img class="radius-10 btmspace-10" src="images/demo/320x185.png" alt="">
-            <figcaption><a href="#">Lorem Ipsum Dolor Sit Amet</a></figcaption>
+        <li th:each="vo:${list}">
+          <figure><img class="radius-10 btmspace-10" th:src="${vo.poster}" alt="">
+            <figcaption><a href="#" th:text="${vo.title}"></a></figcaption>
           </figure>
         </li>
       </ul>
