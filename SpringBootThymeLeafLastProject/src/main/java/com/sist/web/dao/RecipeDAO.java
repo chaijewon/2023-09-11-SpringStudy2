@@ -11,7 +11,13 @@ import java.util.*;
 public interface RecipeDAO extends JpaRepository<Recipe2, Integer>{
 	// JPQL / 일반 SQL => nativeQuery = true
 	// => 조인 / 서브쿼리 
-    @Query(value="SELECT no,title,poster,chef,hit "
+	/*
+	 *   @Query(value="SELECT no,title,poster "
+    	  +"FROM recipe2 ORDER BY no ASC "
+    	  +"LIMIT 0,12",nativeQuery = true)
+        public List<RecipeData> recipeMainData();
+	 */
+    @Query(value="SELECT * "
     	  +"FROM recipe2 ORDER BY no ASC "
     	  +"LIMIT 0,12",nativeQuery = true)
     public List<Recipe2> recipeMainData();

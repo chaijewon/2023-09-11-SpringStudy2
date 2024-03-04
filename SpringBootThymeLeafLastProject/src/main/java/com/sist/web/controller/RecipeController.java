@@ -17,7 +17,8 @@ public class RecipeController {
    
    @Autowired
    private RecipeDetailDAO rDao;
-   
+   // localhost/recipe/main
+   // static => ../images/icon/a1.png
    @GetMapping("/recipe/main")
    public String recipe_main(String page,Model model)
    {
