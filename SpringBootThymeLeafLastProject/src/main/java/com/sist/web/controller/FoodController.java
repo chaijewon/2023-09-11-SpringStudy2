@@ -14,6 +14,9 @@ public class FoodController {
    @Autowired
    private FoodDAO dao;
    
+   @Autowired
+   private ReplyDAO rDao;
+   
    @GetMapping("/food/list")
    public String food_list(String page,Model model)
    {
@@ -42,8 +45,10 @@ public class FoodController {
    @GetMapping("/food/detail")
    public String food_detail(int fno,Model model)
    {
+	   List<Reply> list=rDao.replyListData(fno);
 	   FoodEntity vo=dao.findByFno(fno);
 	   model.addAttribute("vo", vo);
+	   model.addAttribute("list", list);
 	   model.addAttribute("main_html", "food/detail");
 	   return "main";
    }

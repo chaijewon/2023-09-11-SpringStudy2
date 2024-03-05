@@ -3,7 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://code.jquery.com/jquery.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript">
+let i=0;
+$(function(){
+	$('.updates').click(function(){
+		$('.ups').hide()
+		$('.updates').val('수정')
+		let no=$(this).attr("alt");
+		if(i==0)
+		{
+			$(this).val("취소");
+			$('#u'+no).show()
+			i=1;
+		}
+		else
+		{
+			$(this).val("수정");
+			$('#u'+no).hide()
+			i=0;
+		}
+	})
+})
+</script>
 </head>
 <body>
 <div class="wrapper row3">
@@ -43,14 +66,47 @@
     </tr>
    </table>
    <div style="height: 20px"></div>
-   
+   <table class="table">
+    <tr>
+     <td>
+      <table class="table" th:each="rvo:${list}">
+        <tr>
+         <td align="left" th:text="|◑ ${rvo.name} ( ${rvo.regdate} )|"></td>
+         <td align="right">
+           <span th:if="${session.id==rvo.id}" class="inline">
+            <input type=button value="수정" class="btn-xs btn-danger updates"
+              th:alt="${rvo.no}"
+            >
+            <a th:href="@{/reply/delete(fno=${rvo.fno},no=${rvo.no})}" class="btn btn-xs btn-success">삭제</a>
+           </span>
+         </td>
+        </tr>
+        <tr>
+         <td colspan="2">
+          <pre style="white-space: pre-wrap;background-color: white;border:none" th:text="${rvo.msg}"></pre>
+         </td>
+        </tr>
+        <tr th:id="|u${rvo.no}|" class="ups" style="display:none">
+         <td colspan="2">
+             <form method="post" action="/reply/update">
+               <input type="hidden" name="no" th:value="${rvo.no}">
+		       <input type="hidden" name="fno" th:value="${vo.fno}">
+		       <textarea rows="5" cols="60" style="float: left" required name="msg" th:text="${rvo.msg}"></textarea>
+		       <input type=submit value="댓글수정" style="height:95px;width:100px;background-color: green">
+		      </form>
+         </td>
+        </tr>
+      </table>
+     </td>
+    </tr>
+   </table>
    <table class="table" th:if="${session.id!=null}">
     <tr>
      <td>
       <form method="post" action="/reply/insert">
        <input type="hidden" name="fno" th:value="${vo.fno}">
-       <textarea rows="5" cols="60" style="float: left" required></textarea>
-       <input type=submit value="댓글쓰기" style="height:92px;width:100px;background-color: green">
+       <textarea rows="5" cols="60" style="float: left" required name="msg"></textarea>
+       <input type=submit value="댓글쓰기" style="height:95px;width:100px;background-color: green">
       </form>
      </td>
     </tr>
