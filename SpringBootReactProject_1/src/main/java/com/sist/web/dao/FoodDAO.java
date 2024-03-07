@@ -17,4 +17,12 @@ public interface FoodDAO extends JpaRepository<FoodEntity, Integer>{
    public int foodFindTotalPage(@Param("address") String address);
    
    public FoodEntity findByFno(int fno);
+   
+   @Query(value="SELECT * FROM food_house "
+		 +"ORDER BY fno ASC LIMIT :start,12",nativeQuery = true)
+   public List<FoodEntity> foodListData(@Param("start") Integer start);
+	   
+   @Query(value="SELECT CEIL(COUNT(*)/12.0) FROM food_house"
+		 ,nativeQuery = true)
+  public int foodListTotalPage();
 }
