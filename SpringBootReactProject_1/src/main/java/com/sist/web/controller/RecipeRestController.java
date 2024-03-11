@@ -16,14 +16,15 @@ public class RecipeRestController {
    @Autowired
    private RecipedetailDAO rDao;
    
+   
    @GetMapping("/recipe/list_react")
-   public Map recipeListData(int page)
+   public List<Recipe> recipeListData(int page)
    {
 	   int rowSize=12;
 	   int start=(rowSize*page)-rowSize;
 	   List<Recipe> list=dao.recipeListData(start);
 	   
-	   Map map=new HashMap();
+	   /*Map map=new HashMap();
 	   int count=(int)dao.count();
 	   int totalpage=(int)(Math.ceil(count/12.0));
 	   final int BLOCK=10;
@@ -37,12 +38,53 @@ public class RecipeRestController {
 	   map.put("startPage",startPage);
 	   map.put("endPage", endPage);
 	   map.put("count", count);
-	   map.put("list", list);
+	   map.put("list", list);*/
 	   
-	   return map;
+	   return list;
+   }
+   @GetMapping("/recipe/count_react")
+   public String recipe_count()
+   {
+	   int count=(int)dao.count();
+	   return String.valueOf(count);
+   }
+   @GetMapping("recipe/page_react")
+   public String recipe_page()
+   {
+	   int count=(int)dao.count();
+	   int total=(int)(Math.ceil(count/12.0));
+	   return String.valueOf(total);
+   }
+   @GetMapping("/recipe/image_react")
+   public List<String> recipeImageData(int no)
+   {
+	   Recipedetail r=rDao.findByNo(no);
+	   List<String> images=new ArrayList<String>();
+	   String[] fm=r.getFoodmake().split("\n");
+	   // ~~~~~~ ^ 이미지
+	   for(String s:fm)
+	   {
+		   String ss=s.substring(s.indexOf("^")+1);
+		   images.add(ss);
+	   }
+	   return images;
+   }
+   @GetMapping("/recipe/make_react")
+   public List<String> recipeMakeData(int no)
+   {
+	   Recipedetail r=rDao.findByNo(no);
+	   List<String> makes=new ArrayList<String>();
+	   String[] fm=r.getFoodmake().split("\n");
+	   // ~~~~~~ ^ 이미지
+	   for(String s:fm)
+	   {
+		   String ss=s.substring(0,s.indexOf("^"));
+		   makes.add(ss);
+	   }
+	   return makes;
    }
    @GetMapping("/recipe/detail_react")
-   public Map recipeDetailData(int no)
+   public Recipedetail recipeDetailData(int no)
    {
 	   Map map=new HashMap();
 	   Recipedetail r=rDao.findByNo(no);
@@ -57,7 +99,7 @@ public class RecipeRestController {
 	   }
 	   map.put("recipe", r);
 	   map.put("make", make);
-	   map.put("image", image);
-	   return map;
+	   map.put("posters", image);
+	   return r;
    }
 }
