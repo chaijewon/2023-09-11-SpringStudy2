@@ -15,18 +15,25 @@ public class BoardController {
   private BoardDAO dao;
   
   @GetMapping("/board/list_react")
-  public Map boardListData(int page)
+  public List<BoardVO> boardListData(int page)
   {
 	  Map map=new HashMap();
 	  int rowSize=10;
 	  int start=(rowSize*page)-rowSize;
 	  List<BoardVO> list=dao.boardListData(start);
-	  int count=(int)dao.count();
+	  /*int count=(int)dao.count();
 	  int totalpage=(int)(Math.ceil(count/10.0));
 	  map.put("curpage", page);
 	  map.put("totalpage", totalpage);
-	  map.put("list", list);
-	  return map;
+	  map.put("list", list);*/
+	  return list;
+  }
+  @GetMapping("/board/total_react")
+  public String board_total()
+  {
+	  int count=(int)dao.count();
+	  int totalpage=(int)(Math.ceil(count/10.0));
+	  return String.valueOf(totalpage);
   }
   @PostMapping("/board/insert_react")
   public String boardInsert(Board vo)

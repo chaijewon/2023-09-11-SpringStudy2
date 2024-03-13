@@ -43,13 +43,13 @@ public class FoodRestController {
 	   return list;
    }
    @GetMapping("/food/list_react")
-   public List<FoodEntity> food_list(int page)
+   public Map food_list(int page)
    {
 	   System.out.println("page:"+page);
 	   int rowSize=12;
 	   int start=(rowSize*page)-rowSize;
 	   List<FoodEntity> list=dao.foodListData(start);
-	   /*Map map=new HashMap();
+	   Map map=new HashMap();
 	   int totalpage=dao.foodListTotalPage();
 	   final int BLOCK=10;
 	   int startPage=((page-1)/BLOCK*BLOCK)+1;
@@ -61,21 +61,22 @@ public class FoodRestController {
 	   map.put("totalpage",totalpage);
 	   map.put("startPage",startPage);
 	   map.put("endPage", endPage);
-	   map.put("list", list);*/
+	   map.put("list", list);
 	   
-	   return list;// response.data
+	   return map;// response.data
 	   
    }
-   @GetMapping("food/food_totalpage_react")
+   @GetMapping("/food/food_totalpage_react")
    public String food_totalpage()
    {
 	   int total=dao.foodListTotalPage();
 	   return String.valueOf(total);
    }
    
-   @GetMapping("food/food_detail_react")
+   @GetMapping("/food/food_detail_react")
    public FoodEntity food_detail(int fno)
    {
+	   System.out.println("연동완료:"+fno);
 	   FoodEntity vo=dao.findByFno(fno);
 	   return vo;
    }
