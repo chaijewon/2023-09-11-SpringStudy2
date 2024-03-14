@@ -14,6 +14,9 @@ public class RecipeController {
 	@Autowired
     private RecipeService rService;
 	
+	@Autowired
+	private RecipedetailService rsService;
+	
 	@GetMapping("/recipe/list_react")
 	public Map recipe_list(int page)
 	{
@@ -27,6 +30,42 @@ public class RecipeController {
 		map.put("recipe_list", list);
 		map.put("totalpage", totalpage);
 		
+		return map;
+	}
+	@GetMapping("/recipe/detail_react")
+	public Map recipe_detail(int no)
+	{
+		Map map=new HashMap();
+		Recipedetail rd=rsService.findByNo(no);
+		List<String> iList=new ArrayList<String>();
+		List<String> mList=new ArrayList<String>();
+		String make=rd.getFoodmake();
+		String[] makes=make.split("\n");
+		for(String s:makes)
+		{
+			StringTokenizer st=new StringTokenizer(s,"^");
+			mList.add(st.nextToken());
+			iList.add(st.nextToken());
+		}
+		String stuff=rd.getStuff();
+		stuff=stuff.replaceAll("구매", "");
+		rd.setStuff(stuff);
+		map.put("detail", rd);
+		map.put("make", mList);
+		map.put("images",iList);
+		return map;
+	}
+	
+	@GetMapping("/recipe/chef_recipe_react")
+	public Map chef_recipe(int page,String chef)
+	{
+		Map map=new HashMap();
+		int rowSize=12;
+		int start=(rowSize*page)-rowSize;
+		List<Recipe> list=rService.chefRecipeList(chef, start);
+		int totalpage=rService.chefTotalPage(chef);
+		map.put("crList", list);
+		map.put("totalpage", totalpage);
 		return map;
 	}
 }

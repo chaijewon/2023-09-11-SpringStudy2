@@ -14,4 +14,14 @@ public interface RecipeService extends JpaRepository<Recipe, Integer>{
    @Query(value="SELECT * FROM recipe2 "
 			 +"ORDER BY no ASC LIMIT :start,12",nativeQuery = true)
    public List<Recipe> recipeListData(@Param("start") int start);
+   
+   @Query(value="SELECT * FROM recipe2 "
+		  +"WHERE chef LIKE CONCAT('%',:chef,'%') "
+		  +"LIMIT :start,12",nativeQuery = true)
+   public List<Recipe> chefRecipeList(@Param("chef") String chef,@Param("start") int start);
+   
+   @Query(value="SELECT CEIL(COUNT(*)/12.0) FROM recipe2 "
+		 +"WHERE chef LIKE CONCAT('%',:chef,'%')",nativeQuery = true)
+   public int chefTotalPage(@Param("chef") String chef);
+   
 }

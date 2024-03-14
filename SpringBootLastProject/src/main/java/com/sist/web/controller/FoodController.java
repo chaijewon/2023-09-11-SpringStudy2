@@ -43,4 +43,15 @@ public class FoodController {
 	   // {find_list:[],totalpage:..}
 	   return map;
    }
+   
+   @GetMapping("/food/detail_react")
+   public Food food_detail(int fno)
+   {
+	   Food food=fService.findByFno(fno);
+	   food.setHit(food.getHit()+1);// 조회수 증가 
+	   fService.save(food);
+	   food=fService.findByFno(fno);
+	   
+	   return food;
+   }
 }
