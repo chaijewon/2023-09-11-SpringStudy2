@@ -43,4 +43,53 @@ public class BoardController {
 	   }
 	   return result;
    }
+   @GetMapping("/board/detail_react")
+   public Board boardDetail(int no)
+   {
+ 	  Board vo=bService.findByNo(no);
+ 	  vo.setHit(vo.getHit()+1);
+ 	  bService.save(vo);
+ 	  vo=bService.findByNo(no);
+ 	  return vo;
+   }
+   @GetMapping("/board/update_react")
+   public Board boardUpdate(int no)
+   {
+ 	  Board vo=bService.findByNo(no);
+ 	  return vo;
+   }
+   @PostMapping("/board/update_ok_react")
+   public String boardUpdateOk(Board vo)
+   {
+ 	  Board dbVO=bService.findByNo(vo.getNo());
+ 	  String result="";
+ 	  if(vo.getPwd().equals(dbVO.getPwd()))
+ 	  {
+ 		  result="yes";
+ 		  vo.setHit(dbVO.getHit());
+ 		  bService.save(vo);
+ 	  }
+ 	  else
+ 	  {
+ 		  result="no";
+ 	  }
+ 	  
+ 	  return result;  
+   }
+   @PostMapping("/board/delete_react")
+   public String boardDelete(int no,String pwd)
+   {
+ 	  String result="";
+ 	  Board vo=bService.findByNo(no);
+ 	  if(vo.getPwd().equals(pwd))
+ 	  {
+ 		 result="yes";
+ 		 bService.delete(vo);
+ 	  }
+ 	  else
+ 	  {
+ 		  result="no";
+ 	  }
+ 	  return result;
+   }
 }
